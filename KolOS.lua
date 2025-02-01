@@ -333,6 +333,61 @@ function Rect:draw(win)
     win.setBackgroundColor(colors.black)
 end
 
+-- Dropdown class
+local Dropdown = {}
+Dropdown.__index = Dropdown
+
+function Dropdown:new(x, y, width, items, bgColor, textColor)
+    local obj = setmetatable({}, self)
+    obj.x = x
+    obj.y = y
+    obj.width = width
+    obj.items = items or {}
+    obj.selectedIndex = 1
+    obj.expanded = false
+    obj.bgColor = bgColor or colors.gray
+    obj.textColor = textColor or colors.white
+    return obj
+end
+
+function Dropdown:setPosition(x, y)
+    local winWidth, winHeight = self.gui.win.getSize()
+    self.x = math.max(1, math.min(x, winWidth))
+    self.y = math.max(1, math.min(y, winHeight))
+end
+
+function Dropdown:setSize(width)
+    local winWidth, _ = self.gui.win.getSize()
+    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+end
+
+function Dropdown:draw(win)
+    win.setCursorPos(self.x, self.y)
+    win.setBackgroundColor(self.bgColor)
+    win.setTextColor(self.textColor)
+    local displayText = self.items[self.selectedIndex] .. string.rep(" ", self.width - #self.items[self.selectedIndex] - 1) .. "V"
+    win.write(displayText)
+    if self.expanded then
+        for i = 1, #self.items do
+            win.setCursorPos(self.x, self.y + i)
+            win.write(self.items[i] .. string.rep(" ", self.width - #self.items[i]))
+        end
+    end
+    win.setBackgroundColor(colors.black)
+    win.setTextColor(colors.white)
+end
+
+function Dropdown:handleClick(mx, my)
+    if mx >= self.x and mx < self.x + self.width and my == self.y then
+        self.expanded = not self.expanded
+    elseif self.expanded and mx >= self.x and mx < self.x + self.width and my > self.y and my <= self.y + #self.items then
+        self.selectedIndex = my - self.y
+        self.expanded = false
+    else
+        self.expanded = false
+    end
+end
+
 -- GUI class
 function GUI:new(x, y, width, height, parent)
     local termWidth, termHeight = term.getSize()
@@ -382,6 +437,13 @@ function GUI:addRect(x, y, width, height, bgColor)
     return rect
 end
 
+function GUI:addDropdown(x, y, width, items, bgColor, textColor)
+    local dropdown = Dropdown:new(x, y, width, items, bgColor, textColor)
+    dropdown.gui = self
+    table.insert(self.components, dropdown)
+    return dropdown
+end
+
 function GUI:addKeyHandler()
     return self.keyHandler
 end
@@ -405,6 +467,8 @@ function GUI:draw()
             comp:draw(win)
         elseif getmetatable(comp) == Rect then
             comp:draw(win)
+        elseif getmetatable(comp) == Dropdown then
+            comp:draw(win)
         end
     end
     win.redraw()
@@ -415,6 +479,8 @@ function GUI:handleClick(x, y)
         if getmetatable(comp) == Button then
             comp:handleClick(x, y)
         elseif getmetatable(comp) == Input then
+            comp:handleClick(x, y)
+        elseif getmetatable(comp) == Dropdown then
             comp:handleClick(x, y)
         end
     end

@@ -25,6 +25,9 @@ local function main()
 
     local rect = gui:addRect(35, 2, 15, 10, colors.red)
 
+    -- Add a dropdown
+    local dropdown = gui:addDropdown(2, 16, 20, {"Option 1", "Option 2", "Option 3", "Option 4"}, colors.blue, colors.white)
+
     -- Add a key handler
     local keyHandler = gui:addKeyHandler()
     keyHandler:registerKey(keys.q, function()
