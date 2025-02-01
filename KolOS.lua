@@ -368,8 +368,14 @@ function Dropdown:draw(win)
     local displayText = self.items[self.selectedIndex] .. string.rep(" ", self.width - #self.items[self.selectedIndex] - 1) .. "V"
     win.write(displayText)
     if self.expanded then
+        local winWidth, winHeight = self.gui.win.getSize()
+        local maxVisibleItems = math.min(#self.items, winHeight - self.y)
+        local startY = self.y + 1
+        if self.y + #self.items > winHeight then
+            startY = self.y - #self.items
+        end
         for i = 1, #self.items do
-            win.setCursorPos(self.x, self.y + i)
+            win.setCursorPos(self.x, startY + i - 1)
             win.write(self.items[i] .. string.rep(" ", self.width - #self.items[i]))
         end
     end
@@ -380,9 +386,18 @@ end
 function Dropdown:handleClick(mx, my)
     if mx >= self.x and mx < self.x + self.width and my == self.y then
         self.expanded = not self.expanded
-    elseif self.expanded and mx >= self.x and mx < self.x + self.width and my > self.y and my <= self.y + #self.items then
-        self.selectedIndex = my - self.y
-        self.expanded = false
+    elseif self.expanded and mx >= self.x and mx < self.x + self.width then
+        local winWidth, winHeight = self.gui.win.getSize()
+        local startY = self.y + 1
+        if self.y + #self.items > winHeight then
+            startY = self.y - #self.items
+        end
+        if my >= startY and my < startY + #self.items then
+            self.selectedIndex = my - startY + 1
+            self.expanded = false
+        else
+            self.expanded = false
+        end
     else
         self.expanded = false
     end
