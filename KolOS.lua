@@ -433,6 +433,10 @@ function Dropdown:isExpanded()
     return self.expanded
 end
 
+function Dropdown:getSelectedOption()
+    return self.items[self.selectedIndex]
+end
+
 -- GUI class
 function GUI:new(x, y, width, height, parent)
     local termWidth, termHeight = term.getSize()
