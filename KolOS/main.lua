@@ -34,8 +34,8 @@ function GUI:addLabel(x, y, text, textColor)
     return label
 end
 
-function GUI:addButton(x, y, label, callback, bgColor, textColor)
-    local button = Button:new(x, y, label, callback, bgColor, textColor)
+function GUI:addButton(x, y, label, callback, bgColor, textColor, width, height)
+    local button = Button:new(x, y, label, callback, bgColor, textColor, width, height)
     button.gui = self
     table.insert(self.components, button)
     return button

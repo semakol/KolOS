@@ -13,9 +13,9 @@ local function main()
     local label = gui:addLabel(2, 2, "Label Hello, World!")
 
     -- Add a button
-    gui:addButton(2, 6, "Click Me", function()
+    gui:addButton(2, 5, "Click Me", function()
         textarea:setSize(textarea.width + 1, textarea.height + 1)
-    end)
+    end, nil, nil , nil, 3)
 
     -- Add an input field
     -- local input = gui:addInput(2, 6, 20)
