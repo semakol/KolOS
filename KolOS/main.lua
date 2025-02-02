@@ -10,6 +10,7 @@ local KeyHandler = require("components.KeyHandler")
 local Textarea = require("components.Textarea")
 local Rect = require("components.Rect")
 local Dropdown = require("components.Dropdown")
+local Switch = require("components.Switch")
 
 -- GUI class
 function GUI:new(x, y, width, height, parent)
@@ -67,6 +68,13 @@ function GUI:addDropdown(x, y, width, items, bgColor, textColor)
     return dropdown
 end
 
+function GUI:addSwitch(x, y, state, callback, bgColor, textColor)
+    local switch = Switch:new(x, y, state, callback, bgColor, textColor)
+    switch.gui = self
+    table.insert(self.components, switch)
+    return switch
+end
+
 function GUI:addKeyHandler()
     return self.keyHandler
 end
@@ -92,6 +100,8 @@ function GUI:draw()
             comp:draw(win)
         elseif getmetatable(comp) == Dropdown then
             comp:draw(win)
+        elseif getmetatable(comp) == Switch then
+            comp:draw(win)
         end
     end
     win.redraw()
@@ -110,6 +120,8 @@ function GUI:handleClick(x, y)
         elseif getmetatable(comp) == Input then
             comp:handleClick(x, y)
         elseif getmetatable(comp) == Dropdown then
+            comp:handleClick(x, y)
+        elseif getmetatable(comp) == Switch then
             comp:handleClick(x, y)
         end
     end
@@ -141,6 +153,8 @@ function GUI:update(event, param1, param2, param3)
                 elseif param1 == keys.down then
                     comp:scrollDown()
                 end
+            elseif getmetatable(comp) == Switch then
+                comp:handleInput(event, param1)
             end
         end
     elseif event == "mouse_scroll" then

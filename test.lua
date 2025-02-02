@@ -7,8 +7,8 @@ local function main()
     local gui = GUI2:new(1, 1, 51, 19)
 
     -- Add a textarea
-    local textarea = gui:addTextarea(2, 10, 30, 5)
-    textarea:setText("This is a textarea.\nYou, can type multiple lines here.")
+    local textarea = gui:addTextarea(2, 10, 30, 3)
+    textarea:setText("This is a      textarea.\nYou, can.. --type multiple lines here.")
 
     -- Add a label
     local label = gui:addLabel(2, 2, "Label Hello, World!")
@@ -30,6 +30,15 @@ local function main()
     -- Add a dropdown
     local dropdown = gui:addDropdown(2, 4, 20, {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"}, colors.blue, colors.white)
 
+    -- Add a switch
+    local switch = gui:addSwitch(2, 14, false, function(state)
+        if state then
+            label:setText("Switch is ON")
+        else
+            label:setText("Switch is OFF")
+        end
+    end)
+
     -- Add a key handler
     local keyHandler = gui:addKeyHandler()
     keyHandler:registerKey(keys.q, function()
@@ -37,7 +46,11 @@ local function main()
     end)
 
     -- Run the GUI
-    gui:run()
+    while true do
+        local event, param1, param2, param3 = os.pullEvent()
+        textarea:addLine(table.concat({event, param1, param2, param3}, ' '))
+        gui:update(event, param1, param2, param3)
+    end
 end
 
 main()
