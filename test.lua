@@ -15,7 +15,7 @@ local function main()
     -- Add a button
     gui:addButton(2, 5, "Click Me", function()
         textarea:setSize(textarea.width + 1, textarea.height + 1)
-    end, nil, nil , nil, 3)
+    end, nil, nil , 8, 3)
 
     -- Add an input field
     -- local input = gui:addInput(2, 6, 20)
@@ -25,6 +25,7 @@ local function main()
     input2.text = "Type here"
 
     local rect = gui:addRect(35, 2, 15, 10, colors.red)
+    local circle = gui:addCircle(36, 3, 48, 10, colors.white, true, " ", colors.yellow)
 
     -- Add a dropdown
     local dropdown = gui:addDropdown(2, 4, 20, {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"})

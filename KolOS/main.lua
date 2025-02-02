@@ -12,6 +12,7 @@ local Rect = require("components.Rect")
 local Dropdown = require("components.Dropdown")
 local Switch = require("components.Switch")
 local Line = require("components.Line")
+local Circle = require("components.Circle")
 
 -- GUI class
 function GUI:new(x, y, width, height, parent)
@@ -83,6 +84,13 @@ function GUI:addLine(x1, y1, x2, y2, color, bgColor, char)
     return line
 end
 
+function GUI:addCircle(x1, y1, x2, y2, color, fill, char, charColor)
+    local circle = Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
+    circle.gui = self
+    table.insert(self.components, circle)
+    return circle
+end
+
 function GUI:addKeyHandler()
     return self.keyHandler
 end
@@ -108,6 +116,8 @@ function GUI:draw()
         elseif getmetatable(comp) == Switch then
             comp:draw(win)
         elseif getmetatable(comp) == Line then
+            comp:draw(win)
+        elseif getmetatable(comp) == Circle then
             comp:draw(win)
         end
     end
