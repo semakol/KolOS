@@ -3,7 +3,6 @@ local GUI2 = require("KolOS.main")
 print(package.path)
 
 local function main()
-    local i = 1
     local gui = GUI2:new(1, 1, 51, 19)
 
     -- Add a textarea
@@ -38,6 +37,9 @@ local function main()
             label:setText("Switch is OFF")
         end
     end)
+
+    -- Add a line
+    local line = gui:addLine(2, 16, 20, 18, colors.yellow, colors.black, "=")
 
     -- Add a key handler
     local keyHandler = gui:addKeyHandler()

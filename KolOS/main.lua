@@ -11,6 +11,7 @@ local Textarea = require("components.Textarea")
 local Rect = require("components.Rect")
 local Dropdown = require("components.Dropdown")
 local Switch = require("components.Switch")
+local Line = require("components.Line")
 
 -- GUI class
 function GUI:new(x, y, width, height, parent)
@@ -68,11 +69,18 @@ function GUI:addDropdown(x, y, width, items, bgColor, textColor)
     return dropdown
 end
 
-function GUI:addSwitch(x, y, state, callback, bgColor, textColor)
-    local switch = Switch:new(x, y, state, callback, bgColor, textColor)
+function GUI:addSwitch(x, y, state, callback, bgColor)
+    local switch = Switch:new(x, y, state, callback, bgColor)
     switch.gui = self
     table.insert(self.components, switch)
     return switch
+end
+
+function GUI:addLine(x1, y1, x2, y2, color, bgColor, char)
+    local line = Line:new(x1, y1, x2, y2, color, bgColor, char)
+    line.gui = self
+    table.insert(self.components, line)
+    return line
 end
 
 function GUI:addKeyHandler()
@@ -85,14 +93,11 @@ function GUI:draw()
     win.clear()
     win.setTextColor(colors.white)
     for _, comp in ipairs(self.components) do
-        win.setCursorPos(comp.x, comp.y)
-        if comp.type == "label" then
-            win.write(comp.text)
+        if getmetatable(comp) == Label then
+            comp:draw(win)
         elseif getmetatable(comp) == Button then
             comp:draw(win)
         elseif getmetatable(comp) == Input then
-            comp:draw(win)
-        elseif getmetatable(comp) == Label then
             comp:draw(win)
         elseif getmetatable(comp) == Textarea then
             comp:draw(win)
@@ -101,6 +106,8 @@ function GUI:draw()
         elseif getmetatable(comp) == Dropdown then
             comp:draw(win)
         elseif getmetatable(comp) == Switch then
+            comp:draw(win)
+        elseif getmetatable(comp) == Line then
             comp:draw(win)
         end
     end
