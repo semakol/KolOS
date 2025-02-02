@@ -153,8 +153,6 @@ function GUI:update(event, param1, param2, param3)
                 elseif param1 == keys.down then
                     comp:scrollDown()
                 end
-            elseif getmetatable(comp) == Switch then
-                comp:handleInput(event, param1)
             end
         end
     elseif event == "mouse_scroll" then

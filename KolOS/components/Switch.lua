@@ -1,24 +1,29 @@
 local Switch = {}
 Switch.__index = Switch
 
-function Switch:new(x, y, state, callback, bgColor, textColor)
+function Switch:new(x, y, state, callback, textColor)
     local obj = setmetatable({}, self)
     obj.x = x
     obj.y = y
     obj.state = state or false
     obj.callback = callback
-    obj.bgColor = bgColor or colors.gray
     obj.textColor = textColor or colors.white
+    obj.activeBgColor = colors.green
+    obj.inactiveBgColor = colors.red
+    obj.activeTextColor = colors.white
+    obj.inactiveTextColor = colors.white
     return obj
 end
 
 function Switch:draw(win)
     win.setCursorPos(self.x, self.y)
-    win.setBackgroundColor(self.bgColor)
-    win.setTextColor(self.textColor)
     if self.state then
+        win.setBackgroundColor(self.activeBgColor)
+        win.setTextColor(self.activeTextColor)
         win.write("[ON]")
     else
+        win.setBackgroundColor(self.inactiveBgColor)
+        win.setTextColor(self.inactiveTextColor)
         win.write("[OFF]")
     end
 end
@@ -32,8 +37,11 @@ function Switch:handleClick(x, y)
     end
 end
 
-function Switch:handleInput(event, key)
-    -- Handle keyboard input if necessary
+function Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+    self.activeBgColor = activeBgColor
+    self.inactiveBgColor = inactiveBgColor
+    self.activeTextColor = activeTextColor
+    self.inactiveTextColor = inactiveTextColor
 end
 
 return Switch

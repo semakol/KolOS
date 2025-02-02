@@ -28,7 +28,7 @@ local function main()
     local rect = gui:addRect(35, 2, 15, 10, colors.red)
 
     -- Add a dropdown
-    local dropdown = gui:addDropdown(2, 4, 20, {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"}, colors.blue, colors.white)
+    local dropdown = gui:addDropdown(2, 4, 20, {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"})
 
     -- Add a switch
     local switch = gui:addSwitch(2, 14, false, function(state)
@@ -48,7 +48,11 @@ local function main()
     -- Run the GUI
     while true do
         local event, param1, param2, param3 = os.pullEvent()
-        textarea:addLine(table.concat({event, param1, param2, param3}, ' '))
+        l = {}
+        for index, value in ipairs({event, param1, param2, param3}) do
+            table.insert(l, tostring(value))
+        end
+        textarea:addLine(table.concat(l, ' '))
         gui:update(event, param1, param2, param3)
     end
 end
