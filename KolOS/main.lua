@@ -101,23 +101,7 @@ function GUI:draw()
     win.clear()
     win.setTextColor(colors.white)
     for _, comp in ipairs(self.components) do
-        if getmetatable(comp) == Label then
-            comp:draw(win)
-        elseif getmetatable(comp) == Button then
-            comp:draw(win)
-        elseif getmetatable(comp) == Input then
-            comp:draw(win)
-        elseif getmetatable(comp) == Textarea then
-            comp:draw(win)
-        elseif getmetatable(comp) == Rect then
-            comp:draw(win)
-        elseif getmetatable(comp) == Dropdown then
-            comp:draw(win)
-        elseif getmetatable(comp) == Switch then
-            comp:draw(win)
-        elseif getmetatable(comp) == Line then
-            comp:draw(win)
-        elseif getmetatable(comp) == Circle then
+        if comp.draw then
             comp:draw(win)
         end
     end
@@ -132,13 +116,7 @@ function GUI:handleClick(x, y)
         end
     end
     for _, comp in ipairs(self.components) do
-        if getmetatable(comp) == Button then
-            comp:handleClick(x, y)
-        elseif getmetatable(comp) == Input then
-            comp:handleClick(x, y)
-        elseif getmetatable(comp) == Dropdown then
-            comp:handleClick(x, y)
-        elseif getmetatable(comp) == Switch then
+        if comp.handleClick then
             comp:handleClick(x, y)
         end
     end
@@ -162,7 +140,7 @@ function GUI:update(event, param1, param2, param3)
     elseif event == "key" or event == "char" then
         self:handleKey(param1)
         for _, comp in ipairs(self.components) do
-            if getmetatable(comp) == Input then
+            if comp.handleInput then
                 comp:handleInput(event, param1)
             elseif getmetatable(comp) == Textarea then
                 if param1 == keys.up then
