@@ -4,10 +4,10 @@ Textarea.__index = Textarea
 
 function Textarea:new(x, y, width, height, bgColor, textColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
-    obj.width = width
-    obj.height = height
+    obj.x = x or 1
+    obj.y = y or 1
+    obj.width = width or 10
+    obj.height = height or 5
     obj.list = {}
     obj.textList = {}
     obj.active = false
@@ -18,16 +18,22 @@ function Textarea:new(x, y, width, height, bgColor, textColor)
 end
 
 function Textarea:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
+    self.x = x or self.x
+    self.y = y or self.y
+    return self
 end
 
 function Textarea:setSize(width, height)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
-    self.height = math.max(1, math.min(height, winHeight - self.y + 1))
+    self.width = width or self.width
+    self.height = height or self.height
     self:updateTextList()
+    return self
+end
+
+function Textarea:setColors(bgColor, textColor)
+    self.bgColor = bgColor or self.bgColor
+    self.textColor = textColor or self.textColor
+    return self
 end
 
 function Textarea:draw(canvas)
@@ -66,6 +72,7 @@ function Textarea:setText(newText)
     if self.gui then
         self.gui:draw()
     end
+    return self
 end
 
 function Textarea:addLine(line)
@@ -74,6 +81,7 @@ function Textarea:addLine(line)
     if self.gui then
         self.gui:draw()
     end
+    return self
 end
 
 function Textarea:scrollUp()
