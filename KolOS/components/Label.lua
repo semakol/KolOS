@@ -2,12 +2,13 @@
 local Label = {}
 Label.__index = Label
 
-function Label:new(x, y, text, textColor)
+function Label:new(x, y, text, textColor, bgColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
-    obj.text = text
+    obj.x = x or 1
+    obj.y = y or 1
+    obj.text = text or ""
     obj.textColor = textColor or colors.white
+    obj.bgColor = bgColor or colors.black
     return obj
 end
 
@@ -15,11 +16,30 @@ function Label:setPosition(x, y)
     local winWidth, winHeight = self.gui.win.getSize()
     self.x = math.max(1, math.min(x, winWidth))
     self.y = math.max(1, math.min(y, winHeight))
+    return self
 end
 
 function Label:setSize(width)
     local winWidth, _ = self.gui.win.getSize()
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+    return self
+end
+
+function Label:setText(newText)
+    self.text = newText
+    if self.gui then
+        self.gui:draw()
+    end
+    return self
+end
+
+function Label:setColors(textColor, bgColor)
+    self.textColor = textColor or self.textColor
+    self.bgColor = bgColor or self.bgColor
+    if self.gui then
+        self.gui:draw()
+    end
+    return self
 end
 
 function Label:draw(canvas)
@@ -27,17 +47,10 @@ function Label:draw(canvas)
         local x = self.x + i - 1
         local y = self.y
         if canvas[y] and canvas[y][x] then
-            canvas[y][x].bgColor = colors.black
+            canvas[y][x].bgColor = self.bgColor
             canvas[y][x].char = self.text:sub(i, i)
             canvas[y][x].charColor = self.textColor
         end
-    end
-end
-
-function Label:setText(newText)
-    self.text = newText
-    if self.gui then
-        self.gui:draw()
     end
 end
 
