@@ -27,8 +27,10 @@ function Button:setSize(width, height)
     return self
 end
 
-function Button:setLabel(label)
+function Button:setLabel(label, width, height)
     self.label = label or self.label
+    self.width = width or #self.label + 2
+    self.height = height or 1
     return self
 end
 

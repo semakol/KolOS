@@ -23,12 +23,8 @@ function Input:setPosition(x, y)
     return self
 end
 
-function Input:setSize(width)
+function Input:setSize(width, maxLength)
     self.width = width or self.width
-    return self
-end
-
-function Input:setMaxLength(maxLength)
     self.maxLength = maxLength or self.maxLength
     return self
 end

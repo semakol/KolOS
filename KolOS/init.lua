@@ -17,8 +17,8 @@ local Circle = require("components.Circle")
 -- GUI class
 function GUI:new(x, y, width, height, parent)
     local termWidth, termHeight = term.getSize()
-    x = x or 0
-    y = y or 0
+    x = x or 1
+    y = y or 1
     width = width or termWidth
     height = height or termHeight
     local obj = setmetatable({}, self)

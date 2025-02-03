@@ -32,12 +32,8 @@ function Dropdown:setItems(items)
     return self
 end
 
-function Dropdown:setBgColor(bgColor)
+function Dropdown:setColors(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
-    return self
-end
-
-function Dropdown:setTextColor(textColor)
     self.textColor = textColor or self.textColor
     return self
 end
