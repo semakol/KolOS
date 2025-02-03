@@ -3,17 +3,43 @@ Circle.__index = Circle
 
 function Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
     local obj = setmetatable({}, self)
-    obj.x1 = x1
-    obj.y1 = y1
-    obj.x2 = x2
-    obj.y2 = y2
-    obj.color = color
+    obj.x1 = x1 or 0
+    obj.y1 = y1 or 0
+    obj.x2 = x2 or 5
+    obj.y2 = y2 or 5
+    obj.color = color or colors.white
     obj.fill = fill or false
     obj.char = char or " "
     obj.charColor = charColor or colors.white
     obj.pixels = {}
     obj:update()
     return obj
+end
+
+function Circle:setPosition(x1, y1, x2, y2)
+    self.x1 = x1 or self.x1
+    self.y1 = y1 or self.y1
+    self.x2 = x2 or self.x2
+    self.y2 = y2 or self.y2
+    self:update()
+    return self
+end
+
+function Circle:setColors(color, charColor)
+    self.color = color or self.color
+    self.charColor = charColor or self.charColor
+    return self
+end
+
+function Circle:setFill(fill)
+    self.fill = fill or self.fill
+    self:update()
+    return self
+end
+
+function Circle:setChar(char)
+    self.char = char or self.char
+    return self
 end
 
 function Circle:update()
