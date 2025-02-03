@@ -111,7 +111,7 @@ end
 
 function Dropdown:handleScroll(direction)
     if self.expanded then
-        if direction == 0 and self.scrollOffset > 0 then
+        if direction == -1 or direction == 0 and self.scrollOffset > 0 then
             self.scrollOffset = self.scrollOffset - 1
         elseif direction == 1 and self.scrollOffset < #self.items - 5 then
             self.scrollOffset = self.scrollOffset + 1

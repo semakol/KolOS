@@ -175,7 +175,7 @@ function GUI:update(event, param1, param2, param3)
             if getmetatable(comp) == Dropdown and comp.expanded then
                 comp:handleScroll(param1)
             elseif getmetatable(comp) == Textarea and comp:isMouseOver(param2, param3) then
-                if param1 == 0 then
+                if param1 == -1 then
                     comp:scrollUp()
                 elseif param1 == 1 then
                     comp:scrollDown()
