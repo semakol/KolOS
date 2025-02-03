@@ -4,14 +4,14 @@ Input.__index = Input
 
 function Input:new(x, y, width, maxLength, bgColor, textColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
-    obj.width = width
+    obj.x = x or 0
+    obj.y = y or 0
+    obj.width = width or 10
     obj.text = ""
     obj.active = false
     obj.cursorPos = 0
     obj.scrollOffset = 0
-    obj.maxLength = maxLength or width  -- Add maxLength property
+    obj.maxLength = maxLength or obj.width
     obj.bgColor = bgColor or colors.white
     obj.textColor = textColor or colors.black
     return obj
@@ -21,11 +21,24 @@ function Input:setPosition(x, y)
     local winWidth, winHeight = self.gui.win.getSize()
     self.x = math.max(1, math.min(x, winWidth))
     self.y = math.max(1, math.min(y, winHeight))
+    return self
 end
 
 function Input:setSize(width)
     local winWidth, _ = self.gui.win.getSize()
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+    return self
+end
+
+function Input:setMaxLength(maxLength)
+    self.maxLength = maxLength or self.maxLength
+    return self
+end
+
+function Input:setColors(bgColor, textColor)
+    self.bgColor = bgColor or self.bgColor
+    self.textColor = textColor or self.textColor
+    return self
 end
 
 function Input:draw(canvas)
