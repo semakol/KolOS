@@ -30,16 +30,19 @@ function Textarea:setSize(width, height)
     self:updateTextList()
 end
 
-function Textarea:draw(win)
-    win.setBackgroundColor(self.bgColor)
-    win.setTextColor(self.textColor)
+function Textarea:draw(canvas)
     for i = 1, self.height do
-        win.setCursorPos(self.x, self.y + i - 1)
+        local y = self.y + i - 1
         local line = self.textList[i + self.scrollOffset] or ""
-        win.write(line .. string.rep(" ", self.width - #line))
+        for j = 1, self.width do
+            local x = self.x + j - 1
+            if canvas[y] and canvas[y][x] then
+                canvas[y][x].bgColor = self.bgColor
+                canvas[y][x].char = line:sub(j, j) ~= "" and line:sub(j, j) or " "
+                canvas[y][x].charColor = self.textColor
+            end
+        end
     end
-    win.setBackgroundColor(colors.black)
-    win.setTextColor(colors.white)
 end
 
 function Textarea:updateTextList()

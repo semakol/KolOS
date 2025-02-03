@@ -28,24 +28,26 @@ function Input:setSize(width)
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
 end
 
-function Input:draw(win)
-    win.setCursorPos(self.x, self.y)
-    win.setBackgroundColor(self.bgColor)
-    win.setTextColor(self.textColor)
-    local displayText = self.text:sub(self.scrollOffset + 1, self.scrollOffset + self.width)
-    win.write(displayText .. string.rep(" ", self.width - #displayText))
-    if self.active then
-        win.setCursorPos(self.x + self.cursorPos - self.scrollOffset, self.y)
-        if self.cursorPos + 1 <= #self.text then
-            win.setBackgroundColor(self.textColor)
-            win.setTextColor(self.bgColor)
-            win.write(self.text:sub(self.cursorPos+1, self.cursorPos+1))
-        else
-            win.write("_")
+function Input:draw(canvas)
+    for i = 1, self.width do
+        local x = self.x + i - 1
+        local y = self.y
+        if canvas[y] and canvas[y][x] then
+            canvas[y][x].bgColor = self.bgColor
+            local char = self.text:sub(self.scrollOffset + i, self.scrollOffset + i)
+            canvas[y][x].char = char ~= "" and char or " "
+            canvas[y][x].charColor = self.textColor
         end
     end
-    win.setBackgroundColor(colors.black)
-    win.setTextColor(colors.white)
+    if self.active then
+        local cursorX = self.x + self.cursorPos - self.scrollOffset
+        if canvas[self.y] and canvas[self.y][cursorX] then
+            canvas[self.y][cursorX].bgColor = self.textColor
+            canvas[self.y][cursorX].charColor = self.bgColor
+            local char = self.text:sub(self.cursorPos + 1, self.cursorPos + 1)
+            canvas[self.y][cursorX].char = char ~= "" and char or "_"
+        end
+    end
 end
 
 function Input:handleClick(mx, my)

@@ -22,11 +22,16 @@ function Label:setSize(width)
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
 end
 
-function Label:draw(win)
-    win.setCursorPos(self.x, self.y)
-    win.setTextColor(self.textColor)
-    win.write(self.text)
-    win.setTextColor(colors.white)
+function Label:draw(canvas)
+    for i = 1, #self.text do
+        local x = self.x + i - 1
+        local y = self.y
+        if canvas[y] and canvas[y][x] then
+            canvas[y][x].bgColor = colors.black
+            canvas[y][x].char = self.text:sub(i, i)
+            canvas[y][x].charColor = self.textColor
+        end
+    end
 end
 
 function Label:setText(newText)

@@ -31,20 +31,22 @@ function Button:addCallback(callback)
     self.callback = callback or function() end
 end
 
-function Button:draw(win)
-    win.setBackgroundColor(self.bgColor)
-    win.setTextColor(self.textColor)
+function Button:draw(canvas)
     for i = 0, self.height - 1 do
-        win.setCursorPos(self.x, self.y + i)
-        if i == math.floor(self.height / 2) then
-            local padding = math.floor((self.width - #self.label) / 2)
-            win.write(string.rep(" ", padding) .. self.label .. string.rep(" ", self.width - #self.label - padding))
-        else
-            win.write(string.rep(" ", self.width))
+        local y = self.y + i
+        for j = 0, self.width - 1 do
+            local x = self.x + j
+            if canvas[y] and canvas[y][x] then
+                canvas[y][x].bgColor = self.bgColor
+                if i == math.floor(self.height / 2) and j >= math.floor((self.width - #self.label) / 2) and j < math.floor((self.width - #self.label) / 2) + #self.label then
+                    canvas[y][x].char = self.label:sub(j - math.floor((self.width - #self.label) / 2) + 1, j - math.floor((self.width - #self.label) / 2) + 1)
+                else
+                    canvas[y][x].char = " "
+                end
+                canvas[y][x].charColor = self.textColor
+            end
         end
     end
-    win.setBackgroundColor(colors.black)
-    win.setTextColor(colors.white)
 end
 
 function Button:handleClick(mx, my)

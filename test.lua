@@ -24,7 +24,7 @@ local function main()
     local input2 = gui:addInput(2, 8, 20)
     input2.text = "Type here"
 
-    local rect = gui:addRect(35, 2, 15, 10, colors.red)
+    local rect = gui:addRect(35, 2, 15, 10, colors.red, true, "-", colors.yellow)
     local circle = gui:addCircle(36, 3, 48, 10, colors.white, true, " ", colors.yellow)
 
     -- Add a dropdown

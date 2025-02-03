@@ -13,16 +13,22 @@ function Line:new(x1, y1, x2, y2, color, bgColor, char)
     return obj
 end
 
-function Line:draw(win)
-    win.setTextColor(self.color)
-    win.setBackgroundColor(self.bgColor)
+function Line:draw(canvas)
     if self.y1 == self.y2 then
-        win.setCursorPos(self.x1, self.y1)
-        win.write(string.rep(self.char, self.x2 - self.x1 + 1))
+        for x = self.x1, self.x2 do
+            if canvas[self.y1] and canvas[self.y1][x] then
+                canvas[self.y1][x].bgColor = self.bgColor
+                canvas[self.y1][x].char = self.char
+                canvas[self.y1][x].charColor = self.color
+            end
+        end
     elseif self.x1 == self.x2 then
         for y = self.y1, self.y2 do
-            win.setCursorPos(self.x1, y)
-            win.write(self.char)
+            if canvas[y] and canvas[y][self.x1] then
+                canvas[y][self.x1].bgColor = self.bgColor
+                canvas[y][self.x1].char = self.char
+                canvas[y][self.x1].charColor = self.color
+            end
         end
     else
         local dx = math.abs(self.x2 - self.x1)
@@ -35,8 +41,11 @@ function Line:draw(win)
         local y = self.y1
 
         while true do
-            win.setCursorPos(x, y)
-            win.write(self.char)
+            if canvas[y] and canvas[y][x] then
+                canvas[y][x].bgColor = self.bgColor
+                canvas[y][x].char = self.char
+                canvas[y][x].charColor = self.color
+            end
 
             if x == self.x2 and y == self.y2 then
                 break

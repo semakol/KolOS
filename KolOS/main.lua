@@ -25,6 +25,13 @@ function GUI:new(x, y, width, height, parent)
     obj.win = window.create(parent or term.current(), x, y, width, height)
     obj.components = {}
     obj.keyHandler = KeyHandler:new()
+    obj.canvas = {}
+    for i = 1, height do
+        obj.canvas[i] = {}
+        for j = 1, width do
+            obj.canvas[i][j] = {bgColor = colors.black, char = " ", charColor = colors.white}
+        end
+    end
     return obj
 end
 
@@ -56,8 +63,8 @@ function GUI:addTextarea(x, y, width, height, bgColor, textColor)
     return textarea
 end
 
-function GUI:addRect(x, y, width, height, bgColor)
-    local rect = Rect:new(x, y, width, height, bgColor)
+function GUI:addRect(x, y, width, height, bgColor, fill, char, charColor)
+    local rect = Rect:new(x, y, width, height, bgColor, fill, char, charColor)
     rect.gui = self
     table.insert(self.components, rect)
     return rect
@@ -97,12 +104,25 @@ end
 
 function GUI:draw()
     local win = self.win
-    win.setBackgroundColor(colors.black)
-    win.clear()
-    win.setTextColor(colors.white)
+    -- Clear the canvas
+    for y, row in ipairs(self.canvas) do
+        for x, _ in ipairs(row) do
+            self.canvas[y][x] = {bgColor = colors.black, char = " ", charColor = colors.white}
+        end
+    end
+    -- Draw components
     for _, comp in ipairs(self.components) do
         if comp.draw then
-            comp:draw(win)
+            comp:draw(self.canvas)
+        end
+    end    
+    -- Render canvas to window
+    for y, row in ipairs(self.canvas) do
+        for x, pixel in ipairs(row) do
+            win.setCursorPos(x, y)
+            win.setBackgroundColor(pixel.bgColor)
+            win.setTextColor(pixel.charColor)
+            win.write(pixel.char)
         end
     end
     win.redraw()

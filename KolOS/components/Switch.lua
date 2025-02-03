@@ -15,16 +15,21 @@ function Switch:new(x, y, state, callback, textColor)
     return obj
 end
 
-function Switch:draw(win)
-    win.setCursorPos(self.x, self.y)
-    if self.state then
-        win.setBackgroundColor(self.activeBgColor)
-        win.setTextColor(self.activeTextColor)
-        win.write("[ON]")
-    else
-        win.setBackgroundColor(self.inactiveBgColor)
-        win.setTextColor(self.inactiveTextColor)
-        win.write("[OFF]")
+function Switch:draw(canvas)
+    for i = 0, 4 do
+        local x = self.x + i
+        local y = self.y
+        if canvas[y] and canvas[y][x] then
+            if self.state then
+                canvas[y][x].bgColor = self.activeBgColor
+                canvas[y][x].charColor = self.activeTextColor
+                canvas[y][x].char = ("[ON] "):sub(i + 1, i + 1)
+            else
+                canvas[y][x].bgColor = self.inactiveBgColor
+                canvas[y][x].charColor = self.inactiveTextColor
+                canvas[y][x].char = ("[OFF]"):sub(i + 1, i + 1)
+            end
+        end
     end
 end
 

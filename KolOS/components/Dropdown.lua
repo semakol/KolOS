@@ -27,27 +27,37 @@ function Dropdown:setSize(width)
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
 end
 
-function Dropdown:draw(win)
-    win.setCursorPos(self.x, self.y)
-    win.setBackgroundColor(self.bgColor)
-    win.setTextColor(self.textColor)
-    local displayText = self.items[self.selectedIndex] .. string.rep(" ", self.width - #self.items[self.selectedIndex] - 1) .. "V"
-    win.write(displayText)
-    if self.expanded then
-        local winWidth, winHeight = self.gui.win.getSize()
-        local maxVisibleItems = math.min(#self.items, 5)
-        local startY = self.y + 1
-        if self.y + maxVisibleItems > winHeight then
-            startY = self.y - maxVisibleItems
-        end
-        for i = 1, maxVisibleItems do
-            win.setCursorPos(self.x, startY + i - 1)
-            local itemIndex = i + self.scrollOffset
-            win.write(self.items[itemIndex] .. string.rep(" ", self.width - #self.items[itemIndex]))
+function Dropdown:draw(canvas)
+    for i = 1, self.width do
+        local x = self.x + i - 1
+        local y = self.y
+        if canvas[y] and canvas[y][x] then
+            canvas[y][x].bgColor = self.bgColor
+            if i == self.width then
+                canvas[y][x].char = "V"
+            else
+                local char = self.items[self.selectedIndex]:sub(i, i)
+                canvas[y][x].char = char ~= "" and char or " "
+            end
+            canvas[y][x].charColor = self.textColor
         end
     end
-    win.setBackgroundColor(colors.black)
-    win.setTextColor(colors.white)
+    if self.expanded then
+        local maxVisibleItems = math.min(#self.items, 5)
+        for i = 1, maxVisibleItems do
+            local itemIndex = i + self.scrollOffset
+            local y = self.y + i
+            for j = 1, self.width do
+                local x = self.x + j - 1
+                if canvas[y] and canvas[y][x] then
+                    canvas[y][x].bgColor = self.bgColor
+                    local char = self.items[itemIndex]:sub(j, j)
+                    canvas[y][x].char = char ~= "" and char or " "
+                    canvas[y][x].charColor = self.textColor
+                end
+            end
+        end
+    end
 end
 
 function Dropdown:handleClick(mx, my)

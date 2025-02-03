@@ -51,12 +51,16 @@ function Circle:update()
     end
 end
 
-function Circle:draw(win)
-    win.setBackgroundColor(self.color)
-    win.setTextColor(self.charColor)
+function Circle:draw(canvas)
+    self.canvas = canvas
     for _, pixel in ipairs(self.pixels) do
-        win.setCursorPos(pixel[1], pixel[2])
-        win.write(self.char)
+        local x = pixel[1]
+        local y = pixel[2]
+        if self.canvas[y] and self.canvas[y][x] then
+            self.canvas[y][x].bgColor = self.color
+            self.canvas[y][x].char = self.char
+            self.canvas[y][x].charColor = self.charColor
+        end
     end
 end
 
