@@ -4,10 +4,10 @@ Rect.__index = Rect
 
 function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
-    obj.width = width
-    obj.height = height
+    obj.x = x or 0
+    obj.y = y or 0
+    obj.width = width or 1
+    obj.height = height or 1
     obj.bgColor = bgColor or colors.gray
     obj.fill = fill or false
     obj.char = char or " "
@@ -19,12 +19,30 @@ function Rect:setPosition(x, y)
     local winWidth, winHeight = self.gui.win.getSize()
     self.x = math.max(1, math.min(x, winWidth))
     self.y = math.max(1, math.min(y, winHeight))
+    return self
 end
 
 function Rect:setSize(width, height)
     local winWidth, winHeight = self.gui.win.getSize()
     self.width = math.max(1, math.min(width, winWidth - self.x + 1))
     self.height = math.max(1, math.min(height, winHeight - self.y + 1))
+    return self
+end
+
+function Rect:setColors(bgColor, charColor)
+    self.bgColor = bgColor
+    self.charColor = charColor
+    return self
+end
+
+function Rect:setChar(char)
+    self.char = char
+    return self
+end
+
+function Rect:setFill(fill)
+    self.fill = fill
+    return self
 end
 
 function Rect:draw(canvas)
