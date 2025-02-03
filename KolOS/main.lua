@@ -77,8 +77,8 @@ function GUI:addDropdown(x, y, width, items, bgColor, textColor)
     return dropdown
 end
 
-function GUI:addSwitch(x, y, state, callback, bgColor)
-    local switch = Switch:new(x, y, state, callback, bgColor)
+function GUI:addSwitch(x, y, state, callback, textColor, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+    local switch = Switch:new(x, y, state, callback, textColor, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
     switch.gui = self
     table.insert(self.components, switch)
     return switch
