@@ -4,9 +4,9 @@ Dropdown.__index = Dropdown
 
 function Dropdown:new(x, y, width, items, bgColor, textColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
-    obj.width = width
+    obj.x = x or 0
+    obj.y = y or 0
+    obj.width = width or 10
     obj.items = items or {}
     obj.selectedIndex = 1
     obj.expanded = false
@@ -18,13 +18,30 @@ end
 
 function Dropdown:setPosition(x, y)
     local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
+    self.x = math.max(1, math.min(x or self.x, winWidth))
+    self.y = math.max(1, math.min(y or self.y, winHeight))
+    return self
 end
 
 function Dropdown:setSize(width)
     local winWidth, _ = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+    self.width = math.max(1, math.min(width or self.width, winWidth - self.x + 1))
+    return self
+end
+
+function Dropdown:setItems(items)
+    self.items = items or self.items
+    return self
+end
+
+function Dropdown:setBgColor(bgColor)
+    self.bgColor = bgColor or self.bgColor
+    return self
+end
+
+function Dropdown:setTextColor(textColor)
+    self.textColor = textColor or self.textColor
+    return self
 end
 
 function Dropdown:draw(canvas)
