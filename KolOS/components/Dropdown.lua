@@ -28,6 +28,15 @@ function Dropdown:setSize(width)
 end
 
 function Dropdown:draw(canvas)
+    local function truncateText(text, maxLength)
+        if #text <= maxLength then
+            return text
+        else
+            local halfLength = math.floor((maxLength - 2) / 2)
+            return text:sub(1, halfLength) .. ".." .. text:sub(-halfLength)
+        end
+    end
+
     for i = 1, self.width do
         local x = self.x + i - 1
         local y = self.y
@@ -36,7 +45,8 @@ function Dropdown:draw(canvas)
             if i == self.width then
                 canvas[y][x].char = "V"
             else
-                local char = self.items[self.selectedIndex]:sub(i, i)
+                local truncatedItem = truncateText(self.items[self.selectedIndex], self.width - 1)
+                local char = truncatedItem:sub(i, i)
                 canvas[y][x].char = char ~= "" and char or " "
             end
             canvas[y][x].charColor = self.textColor
@@ -51,7 +61,8 @@ function Dropdown:draw(canvas)
                 local x = self.x + j - 1
                 if canvas[y] and canvas[y][x] then
                     canvas[y][x].bgColor = self.bgColor
-                    local char = self.items[itemIndex]:sub(j, j)
+                    local truncatedItem = truncateText(self.items[itemIndex], self.width)
+                    local char = truncatedItem:sub(j, j)
                     canvas[y][x].char = char ~= "" and char or " "
                     canvas[y][x].charColor = self.textColor
                 end
