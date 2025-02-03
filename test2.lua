@@ -3,17 +3,17 @@ local kolos = require("KolOS")
 local gui = kolos:new()
 
 local label = gui:addLabel()
-    :setPosition(10, 3)
+    :setPosition(2, 2)
     :setText("Hello, World!")
     :setColors(colors.white)
 
 local input = gui:addInput()
-    :setPosition(5, 7)
+    :setPosition(2, 6)
     :setSize(20, 100)
     :setColors(colors.gray, colors.white)
 
 local textarea = gui:addTextarea()
-    :setPosition(5, 9)
+    :setPosition(2, 8)
     :setSize(20, 5)
     :setColors(colors.gray, colors.white)
 
@@ -24,20 +24,20 @@ local rect = gui:addRect()
     :setFill(true)
 
 local button = gui:addButton()
-    :setPosition(5, 5)
+    :setPosition(2, 4)
     :setLabel("Click Me")
     :addCallback(function()
-        textarea:addLine(input.text)
+        textarea:addLine("> "..input.text)
     end)
 
 local dropdown = gui:addDropdown()
-    :setPosition(5, 16)
+    :setPosition(2, 14)
     :setSize(20)
     :setItems({"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"})
     :setColors(colors.gray, colors.white)
 
 local switch = gui:addSwitch()
-    :setPosition(30, 11)
+    :setPosition(2, 16)
     :setState(false)
     :setCallback(function(state)
         label:setText("Switch state: " .. tostring(state))
@@ -65,13 +65,5 @@ parallel.waitForAny(
             end
             -- textarea:addLine(table.concat(l, ' '))
             gui:update(event, param1, param2, param3)
-        end
-    end, 
-    function()
-        i = 1 
-        while true do
-            sleep(1)
-            i = i + 1
-            label:setText("Hello, World! " .. i)
         end
     end)

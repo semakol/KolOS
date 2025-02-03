@@ -63,11 +63,17 @@ function Dropdown:draw(canvas)
             canvas[y][x].charColor = self.textColor
         end
     end
+
     if self.expanded then
         local maxVisibleItems = math.min(#self.items, 5)
+        local winWidth, winHeight = self.gui.win.getSize()
+        local startY = self.y + 1
+        if self.y + maxVisibleItems > winHeight then
+            startY = self.y - maxVisibleItems
+        end
         for i = 1, maxVisibleItems do
             local itemIndex = i + self.scrollOffset
-            local y = self.y + i
+            local y = startY + i - 1
             for j = 1, self.width do
                 local x = self.x + j - 1
                 if canvas[y] and canvas[y][x] then

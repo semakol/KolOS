@@ -10,7 +10,7 @@ function Button:new(x, y, label, callback, bgColor, textColor, width, height)
     obj.callback = callback or {}
     obj.bgColor = bgColor or colors.gray
     obj.textColor = textColor or colors.white
-    obj.width = width or #label + 2
+    obj.width = width or #obj.label + 2
     obj.height = height or 1
     return obj
 end
