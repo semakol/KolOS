@@ -22,13 +22,13 @@ function Line:setCoordinates(x1, y1, x2, y2)
 end
 
 function Line:setColors(color, bgColor)
-    self.color = color
-    self.bgColor = bgColor
+    self.color = color or self.color
+    self.bgColor = bgColor or self.bgColor
     return self
 end
 
 function Line:setChar(char)
-    self.char = char
+    self.char = char or self.char
     return self
 end
 

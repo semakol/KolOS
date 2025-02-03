@@ -1,4 +1,4 @@
-local GUI2 = require("KolOS.main")
+local GUI2 = require("KolOS")
 
 print(package.path)
 
@@ -13,9 +13,9 @@ local function main()
     local label = gui:addLabel(2, 2, "Label Hello, World!")
 
     -- Add a button
-    gui:addButton(2, 5, "Click Me", function()
+    gui:addButton(2, 6, "Click Me", {function()
         textarea:setSize(textarea.width + 1, textarea.height + 1)
-    end, nil, nil , 8, 3)
+    end})
 
     -- Add an input field
     -- local input = gui:addInput(2, 6, 20)
@@ -28,7 +28,7 @@ local function main()
     local circle = gui:addCircle(36, 3, 48, 10, colors.white, true, " ", colors.yellow)
 
     -- Add a dropdown
-    local dropdown = gui:addDropdown(2, 4, 20, {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"})
+    local dropdown = gui:addDropdown(2, 4, 20, {"Optionssssssssssssssssssssssssss 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"})
 
     -- Add a switch
     local switch = gui:addSwitch(2, 14, false, function(state)

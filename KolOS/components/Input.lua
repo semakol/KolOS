@@ -18,15 +18,13 @@ function Input:new(x, y, width, maxLength, bgColor, textColor)
 end
 
 function Input:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
+    self.x = x or self.x
+    self.y = y or self.y
     return self
 end
 
 function Input:setSize(width)
-    local winWidth, _ = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+    self.width = width or self.width
     return self
 end
 

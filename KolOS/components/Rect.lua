@@ -16,32 +16,30 @@ function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
 end
 
 function Rect:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
+    self.x = x or self.x
+    self.y = y or self.y
     return self
 end
 
 function Rect:setSize(width, height)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
-    self.height = math.max(1, math.min(height, winHeight - self.y + 1))
+    self.width = width or self.width
+    self.height = height or self.height
     return self
 end
 
 function Rect:setColors(bgColor, charColor)
-    self.bgColor = bgColor
-    self.charColor = charColor
+    self.bgColor = bgColor or self.bgColor
+    self.charColor = charColor or self.charColor
     return self
 end
 
 function Rect:setChar(char)
-    self.char = char
+    self.char = char or self.char
     return self
 end
 
 function Rect:setFill(fill)
-    self.fill = fill
+    self.fill = fill or self.fill
     return self
 end
 

@@ -17,15 +17,13 @@ function Dropdown:new(x, y, width, items, bgColor, textColor)
 end
 
 function Dropdown:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x or self.x, winWidth))
-    self.y = math.max(1, math.min(y or self.y, winHeight))
+    self.x = x or self.x
+    self.y = y or self.y
     return self
 end
 
 function Dropdown:setSize(width)
-    local winWidth, _ = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width or self.width, winWidth - self.x + 1))
+    self.width = width or self.width
     return self
 end
 

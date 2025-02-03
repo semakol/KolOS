@@ -16,16 +16,14 @@ function Button:new(x, y, label, callback, bgColor, textColor, width, height)
 end
 
 function Button:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
+    self.x = x or self.x
+    self.y = y or self.y
     return self
 end
 
 function Button:setSize(width, height)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
-    self.height = math.max(1, math.min(height, winHeight - self.y + 1))
+    self.width = width or self.width
+    self.height = height or self.height
     return self
 end
 

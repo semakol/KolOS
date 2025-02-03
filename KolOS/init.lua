@@ -187,16 +187,16 @@ function GUI:update(event, param1, param2, param3)
 end
 
 function GUI:run(...)
-    local functions = {...}
-    self:draw()
+    -- local functions = {...}
+    -- self:draw()
     parallel.waitForAny(
         function ()
             while true do
                 local event, param1, param2, param3 = os.pullEvent()
                 self:update(event, param1, param2, param3)
             end
-        end,
-        table.unpack(functions)
+        end
+        -- table.unpack(functions)
     )
 end
 

@@ -13,15 +13,8 @@ function Label:new(x, y, text, textColor, bgColor)
 end
 
 function Label:setPosition(x, y)
-    local winWidth, winHeight = self.gui.win.getSize()
-    self.x = math.max(1, math.min(x, winWidth))
-    self.y = math.max(1, math.min(y, winHeight))
-    return self
-end
-
-function Label:setSize(width)
-    local winWidth, _ = self.gui.win.getSize()
-    self.width = math.max(1, math.min(width, winWidth - self.x + 1))
+    self.x = x or self.x
+    self.y = y or self.y
     return self
 end
 
