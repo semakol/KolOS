@@ -1,13 +1,12 @@
 local Switch = {}
 Switch.__index = Switch
 
-function Switch:new(x, y, state, callback, textColor, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
     local obj = setmetatable({}, self)
-    obj.x = x
-    obj.y = y
+    obj.x = x or 0
+    obj.y = y or 0
     obj.state = state or false
     obj.callback = callback
-    obj.textColor = textColor or colors.white
     obj.activeBgColor = activeBgColor or colors.green
     obj.inactiveBgColor = inactiveBgColor or colors.red
     obj.activeTextColor = activeTextColor or colors.white
@@ -15,6 +14,36 @@ function Switch:new(x, y, state, callback, textColor, activeText, inactiveText, 
     obj.activeText = activeText or "[ON]"
     obj.inactiveText = inactiveText or "[OFF]"
     return obj
+end
+
+function Switch:setPosition(x, y)
+    self.x = x or self.x
+    self.y = y or self.y
+    return self
+end
+
+function Switch:setState(state)
+    self.state = state
+    return self
+end
+
+function Switch:setCallback(callback)
+    self.callback = callback
+    return self
+end
+
+function Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+    self.activeBgColor = activeBgColor or self.activeBgColor
+    self.inactiveBgColor = inactiveBgColor or self.inactiveBgColor
+    self.activeTextColor = activeTextColor or self.activeTextColor
+    self.inactiveTextColor = inactiveTextColor or self.inactiveTextColor
+    return self
+end
+
+function Switch:setTexts(activeText, inactiveText)
+    self.activeText = activeText or self.activeText
+    self.inactiveText = inactiveText or self.inactiveText
+    return self
 end
 
 function Switch:draw(canvas)
@@ -43,21 +72,6 @@ function Switch:handleClick(x, y)
             self.callback(self.state)
         end
     end
-end
-
-function Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
-    self.activeBgColor = activeBgColor
-    self.inactiveBgColor = inactiveBgColor
-    self.activeTextColor = activeTextColor
-    self.inactiveTextColor = inactiveTextColor
-end
-
-function Switch:setActiveText(text)
-    self.activeText = text
-end
-
-function Switch:setInactiveText(text)
-    self.inactiveText = text
 end
 
 return Switch
