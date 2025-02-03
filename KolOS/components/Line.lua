@@ -3,14 +3,33 @@ Line.__index = Line
 
 function Line:new(x1, y1, x2, y2, color, bgColor, char)
     local obj = setmetatable({}, self)
-    obj.x1 = x1
-    obj.y1 = y1
-    obj.x2 = x2
-    obj.y2 = y2
+    obj.x1 = x1 or 0
+    obj.y1 = y1 or 0
+    obj.x2 = x2 or 0
+    obj.y2 = y2 or 0
     obj.color = color or colors.white
     obj.bgColor = bgColor or colors.black
     obj.char = char or "-"
     return obj
+end
+
+function Line:setCoordinates(x1, y1, x2, y2)
+    self.x1 = x1 or self.x1
+    self.y1 = y1 or self.y1
+    self.x2 = x2 or self.x2
+    self.y2 = y2 or self.y2
+    return self
+end
+
+function Line:setColors(color, bgColor)
+    self.color = color
+    self.bgColor = bgColor
+    return self
+end
+
+function Line:setChar(char)
+    self.char = char
+    return self
 end
 
 function Line:draw(canvas)
