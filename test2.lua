@@ -1,4 +1,5 @@
 local kolos = require("KolOS")
+local completion = require "cc.completion"
 
 local gui = kolos:new()
 
@@ -7,15 +8,24 @@ local label = gui:addLabel()
     :setText("Hello, World!")
     :setColors(colors.white)
 
+local textarea = gui:addTextarea()
+:setPosition(2, 8)
+:setSize(20, 5)
+:setColors(colors.gray, colors.white)
+
 local input = gui:addInput()
     :setPosition(2, 6)
     :setSize(20, 100)
     :setColors(colors.gray, colors.white)
-
-local textarea = gui:addTextarea()
-    :setPosition(2, 8)
-    :setSize(20, 5)
-    :setColors(colors.gray, colors.white)
+    -- :setReplaceChar('l')
+    :setHistory({'scam', 'aboba'})
+    :setCompleteFn(function(text)
+        return completion.choice(text, {"scam", "aboba", "abbba", "ababa", "abiba", "aboba", "abuba"})
+    end)
+    :setCallback(function(text)
+        textarea:addLine("> " .. text)
+    end)
+    :setDeactivateOnEnter(false)
 
 local rect = gui:addRect()
     :setPosition(30, 5)
@@ -55,15 +65,23 @@ local circle = gui:addCircle()
     :setColors(colors.red)
     :setFill(true)
 
-parallel.waitForAny(
-    function()
-        while true do
-            local event, param1, param2, param3 = os.pullEvent()
-            l = {}
-            for index, value in ipairs({event, param1, param2, param3}) do
-                table.insert(l, tostring(value))
+local ok, error = pcall(function ()
+    parallel.waitForAny(
+        function()
+            while true do
+                local event, param1, param2, param3 = os.pullEvent()
+                l = {}
+                for index, value in ipairs({event, param1, param2, param3}) do
+                    table.insert(l, tostring(value))
+                end
+                -- textarea:addLine(table.concat(l, ' '))
+                gui:update(event, param1, param2, param3)
             end
-            -- textarea:addLine(table.concat(l, ' '))
-            gui:update(event, param1, param2, param3)
-        end
-    end)
+        end)
+end)
+
+term.clear()
+term.setCursorPos(1,1)
+if not ok then
+    printError(error)
+end

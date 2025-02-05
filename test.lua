@@ -49,14 +49,20 @@ local function main()
     end)
 
     -- Run the GUI
-    while true do
-        local event, param1, param2, param3 = os.pullEvent()
-        l = {}
-        for index, value in ipairs({event, param1, param2, param3}) do
-            table.insert(l, tostring(value))
+    local ok, error = pcall(function ()
+        while true do
+            local event, param1, param2, param3 = os.pullEvent()
+            l = {}
+            for index, value in ipairs({event, param1, param2, param3}) do
+                table.insert(l, tostring(value))
+            end
+            textarea:addLine(table.concat(l, ' '))
+            gui:update(event, param1, param2, param3)
         end
-        textarea:addLine(table.concat(l, ' '))
-        gui:update(event, param1, param2, param3)
+    end)
+    term.clear()
+    if not ok then
+        printError(error)
     end
 end
 
