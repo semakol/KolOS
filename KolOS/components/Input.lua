@@ -217,7 +217,6 @@ function Input:handleInput(event, param)
                 self.text = self.history[self.historyIndex] or ""
                 self.cursorPos = #self.text
                 self.scrollOffset = math.max(0, self.cursorPos - self.width)
-                self:updateCompletions()
             end
         elseif param == keys.down then
             if #self.completions > 0 then
@@ -227,7 +226,6 @@ function Input:handleInput(event, param)
                 self.text = self.history[self.historyIndex] or ""
                 self.cursorPos = #self.text
                 self.scrollOffset = math.max(0, self.cursorPos - self.width)
-                self:updateCompletions()
             end
         elseif param == keys.tab and #self.completions > 0 then
             local completion = self.completions[self.completionIndex]
