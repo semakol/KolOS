@@ -161,7 +161,12 @@ function Input:handleInput(event, param)
                     self.scrollOffset = self.scrollOffset - 1
                 end
             end
-            self:updateCompletions()
+            if #self.text == 0 then
+                self.completions = {}
+                self.completionIndex = 0
+            else
+                self:updateCompletions()
+            end
         elseif param == keys.enter then
             table.insert(self.history, self.text)
             self.historyIndex = #self.history + 1
