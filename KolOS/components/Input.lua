@@ -3,6 +3,21 @@ local Input = {}
 Input.__index = Input
 
 function Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        width = params.width
+        maxLength = params.maxLength
+        bgColor = params.bgColor
+        textColor = params.textColor
+        replaceChar = params.replaceChar
+        history = params.history
+        completeFn = params.completeFn
+        default = params.default
+        callback = params.callback
+        deactivateOnEnter = params.deactivateOnEnter
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 0
     obj.y = y or 0

@@ -49,8 +49,8 @@ function GUI:addButton(x, y, label, callback, bgColor, textColor, width, height)
     return button
 end
 
-function GUI:addInput(x, y, width, maxLength, bgColor, textColor)
-    local input = Input:new(x, y, width, maxLength, bgColor, textColor)
+function GUI:addInput(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)
+    local input = Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)
     input.gui = self
     table.insert(self.components, input)
     return input

@@ -2,6 +2,16 @@ local Line = {}
 Line.__index = Line
 
 function Line:new(x1, y1, x2, y2, color, bgColor, char)
+    if type(x1) == "table" then
+        local params = x1
+        x1 = params.x1
+        y1 = params.y1
+        x2 = params.x2
+        y2 = params.y2
+        color = params.color
+        bgColor = params.bgColor
+        char = params.char
+    end
     local obj = setmetatable({}, self)
     obj.x1 = x1 or 0
     obj.y1 = y1 or 0

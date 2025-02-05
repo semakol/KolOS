@@ -3,6 +3,14 @@ local Label = {}
 Label.__index = Label
 
 function Label:new(x, y, text, textColor, bgColor)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        text = params.text
+        textColor = params.textColor
+        bgColor = params.bgColor
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 1
     obj.y = y or 1

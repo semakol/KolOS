@@ -2,6 +2,19 @@ local Switch = {}
 Switch.__index = Switch
 
 function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        state = params.state
+        callback = params.callback
+        activeText = params.activeText
+        inactiveText = params.inactiveText
+        activeBgColor = params.activeBgColor
+        inactiveBgColor = params.inactiveBgColor
+        activeTextColor = params.activeTextColor
+        inactiveTextColor = params.inactiveTextColor
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 0
     obj.y = y or 0

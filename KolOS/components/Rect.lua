@@ -3,6 +3,17 @@ local Rect = {}
 Rect.__index = Rect
 
 function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        width = params.width
+        height = params.height
+        bgColor = params.bgColor
+        fill = params.fill
+        char = params.char
+        charColor = params.charColor
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 0
     obj.y = y or 0

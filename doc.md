@@ -6,7 +6,7 @@
 - `new(x, y, width, height, parent)`: Creates a new GUI instance.
 - `addLabel(x, y, text, textColor)`: Adds a label to the GUI.
 - `addButton(x, y, label, callback, bgColor, textColor, width, height)`: Adds a button to the GUI.
-- `addInput(x, y, width, maxLength, bgColor, textColor)`: Adds an input field to the GUI.
+- `addInput(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)`: Adds an input field to the GUI.
 - `addTextarea(x, y, width, height, bgColor, textColor)`: Adds a textarea to the GUI.
 - `addRect(x, y, width, height, bgColor, fill, char, charColor)`: Adds a rectangle to the GUI.
 - `addDropdown(x, y, width, items, bgColor, textColor)`: Adds a dropdown to the GUI.
@@ -35,10 +35,17 @@
 ## Input
 
 ### Methods
-- `new(x, y, width, maxLength, bgColor, textColor)`: Creates a new Input instance.
+- `new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)`: Creates a new Input instance.
 - `setPosition(x, y)`: Sets the position of the input field.
 - `setSize(width, maxLength)`: Sets the size and maximum length of the input field.
 - `setColors(bgColor, textColor)`: Sets the background and text color of the input field.
+- `setReplaceChar(replaceChar)`: Sets the replace character of the input field.
+- `setHistory(history)`: Sets the history of the input field.
+- `setCompleteFn(completeFn)`: Sets the completion function of the input field.
+- `setDefault(default)`: Sets the default text of the input field.
+- `setCallback(callback)`: Sets the callback function of the input field.
+- `setDeactivateOnEnter(deactivateOnEnter)`: Sets whether the input field deactivates on enter.
+- `addHistory(item)`: Adds an item to the history of the input field.
 - `draw(canvas)`: Draws the input field on the canvas.
 - `handleClick(mx, my)`: Handles mouse click events.
 - `handleInput(event, param)`: Handles input events.

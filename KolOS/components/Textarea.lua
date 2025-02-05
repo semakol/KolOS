@@ -3,6 +3,15 @@ local Textarea = {}
 Textarea.__index = Textarea
 
 function Textarea:new(x, y, width, height, bgColor, textColor)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        width = params.width
+        height = params.height
+        bgColor = params.bgColor
+        textColor = params.textColor
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 1
     obj.y = y or 1

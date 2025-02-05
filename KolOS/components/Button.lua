@@ -3,6 +3,17 @@ Button.__index = Button
 
 -- Button class
 function Button:new(x, y, label, callback, bgColor, textColor, width, height)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        label = params.label
+        callback = params.callback
+        bgColor = params.bgColor
+        textColor = params.textColor
+        width = params.width
+        height = params.height
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 0
     obj.y = y or 0

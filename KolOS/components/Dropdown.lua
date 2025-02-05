@@ -3,6 +3,15 @@ local Dropdown = {}
 Dropdown.__index = Dropdown
 
 function Dropdown:new(x, y, width, items, bgColor, textColor)
+    if type(x) == "table" then
+        local params = x
+        x = params.x
+        y = params.y
+        width = params.width
+        items = params.items
+        bgColor = params.bgColor
+        textColor = params.textColor
+    end
     local obj = setmetatable({}, self)
     obj.x = x or 0
     obj.y = y or 0
