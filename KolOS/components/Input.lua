@@ -183,7 +183,9 @@ function Input:handleInput(event, param)
                 self:updateCompletions()
             end
         elseif param == keys.enter then
-            table.insert(self.history, self.text)
+            if self.history[#self.history] ~= self.text then
+                table.insert(self.history, self.text)
+            end
             self.historyIndex = #self.history + 1
             if self.callback then
                 self.callback(self.text)
