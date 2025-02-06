@@ -157,7 +157,7 @@ end
 function Frame:update(event, param1, param2, param3)
     if event == "mouse_click" then
         self:handleClick(param2, param3)
-    elseif event == "key" or event == "char" then
+    elseif event == "key" or event == "char" or event == "paste" then
         self:handleKey(param1)
         for _, comp in ipairs(self.components) do
             if comp.handleInput then

@@ -237,6 +237,16 @@ function Input:handleInput(event, param)
             self.scrollOffset = math.max(0, self.cursorPos - self.width)
             self:updateCompletions()
         end
+    elseif self.active and event == "paste" then
+        local pasteText = param
+        if #self.text + #pasteText <= self.maxLength then
+            self.text = self.text:sub(1, self.cursorPos) .. pasteText .. self.text:sub(self.cursorPos + 1)
+            self.cursorPos = self.cursorPos + #pasteText
+            if self.cursorPos > self.scrollOffset + self.width then
+                self.scrollOffset = self.scrollOffset + #pasteText
+            end
+        end
+        self:updateCompletions()
     end
 end
 
