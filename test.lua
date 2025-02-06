@@ -1,10 +1,10 @@
 local GUI2 = require("KolOS")
+local gui = GUI2:new(1, 1, 51, 19)
 
+print(table.concat(gui.__index, ', '))
 print(package.path)
 
 local function main()
-    local gui = GUI2:new(1, 1, 51, 19)
-
     -- Add a textarea
     local textarea = gui:addTextarea(2, 10, 30, 3)
     textarea:setText("This is a      textarea.\nYou, can.. --type multiple lines here.")

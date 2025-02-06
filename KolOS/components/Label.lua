@@ -28,18 +28,18 @@ end
 
 function Label:setText(newText)
     self.text = newText
-    if self.gui then
-        self.gui:draw()
-    end
+    -- if self.gui then
+    --     self.gui:draw()
+    -- end
     return self
 end
 
 function Label:setColors(textColor, bgColor)
     self.textColor = textColor or self.textColor
     self.bgColor = bgColor or self.bgColor
-    if self.gui then
-        self.gui:draw()
-    end
+    -- if self.gui then
+    --     self.gui:draw()
+    -- end
     return self
 end
 
