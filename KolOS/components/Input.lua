@@ -195,6 +195,7 @@ function Input:handleInput(event, param)
             if self.deactivateOnEnter then
                 self.active = false
             end
+            self:updateCompletions()
         elseif param == keys.left then
             if self.cursorPos > 0 then
                 self.cursorPos = self.cursorPos - 1
