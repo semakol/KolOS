@@ -75,7 +75,7 @@ function Dropdown:draw(canvas)
 
     if self.expanded then
         local maxVisibleItems = math.min(#self.items, 5)
-        local winWidth, winHeight = self.gui.win.getSize()
+        local winWidth, winHeight = self.frame.win.getSize()
         local startY = self.y + 1
         if self.y + maxVisibleItems > winHeight then
             startY = self.y - maxVisibleItems
@@ -101,7 +101,7 @@ function Dropdown:handleClick(mx, my)
     if mx >= self.x and mx < self.x + self.width and my == self.y then
         self.expanded = not self.expanded
     elseif self.expanded and mx >= self.x and mx < self.x + self.width then
-        local winWidth, winHeight = self.gui.win.getSize()
+        local winWidth, winHeight = self.frame.win.getSize()
         local maxVisibleItems = math.min(#self.items, 5)
         local startY = self.y + 1
         if self.y + maxVisibleItems > winHeight then

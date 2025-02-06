@@ -78,36 +78,36 @@ function Textarea:setText(newText)
         table.insert(self.list, line)
     end
     self:updateTextList()
-    if self.gui then
-        self.gui:draw()
-    end
+    -- if self.gui then
+    --     self.gui:draw()
+    -- end
     return self
 end
 
 function Textarea:addLine(line)
     table.insert(self.list, line)
     self:updateTextList()
-    if self.gui then
-        self.gui:draw()
-    end
+    -- if self.gui then
+    --     self.gui:draw()
+    -- end
     return self
 end
 
 function Textarea:scrollUp()
     if self.scrollOffset > 0 then
         self.scrollOffset = self.scrollOffset - 1
-        if self.gui then
-            self.gui:draw()
-        end
+        -- if self.gui then
+        --     self.gui:draw()
+        -- end
     end
 end
 
 function Textarea:scrollDown()
     if self.scrollOffset < #self.textList - self.height then
         self.scrollOffset = self.scrollOffset + 1
-        if self.gui then
-            self.gui:draw()
-        end
+        -- if self.gui then
+        --     self.gui:draw()
+        -- end
     end
 end
 
