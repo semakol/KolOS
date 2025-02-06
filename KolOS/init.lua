@@ -54,4 +54,4 @@ function GUI:run(...)
     )
 end
 
-return GUI
+return GUI:new()

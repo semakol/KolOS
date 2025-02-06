@@ -1,12 +1,13 @@
 local kolos = require("KolOS")
 local completion = require "cc.completion"
 
-local gui = kolos:new()
+local frame = kolos:addFrame()
 
-print(table.concat(gui, ', '))
-print(gui.addframe)
-
-local frame = gui:addframe()
+local bg = frame:addRect()
+    :setPosition(1, 1)
+    :setSize(90, 20)
+    :setColors(colors.white)
+    :setFill(true)
 
 local label = frame:addLabel()
     :setPosition(2, 2)
@@ -45,11 +46,11 @@ local button = frame:addButton()
         textarea:addLine("> "..input.text)
     end)
 
--- local dropdown = frame:addDropdown()
---     :setPosition(2, 14)
---     :setSize(20)
---     :setItems({"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"})
---     :setColors(colors.gray, colors.white)
+local dropdown = frame:addDropdown()
+    :setPosition(2, 14)
+    :setSize(20)
+    :setItems({"Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"})
+    :setColors(colors.gray, colors.white)
 
 local switch = frame:addSwitch()
     :setPosition(2, 16)
@@ -80,7 +81,7 @@ local ok, error = pcall(function ()
                     table.insert(l, tostring(value))
                 end
                 -- textarea:addLine(table.concat(l, ' '))
-                gui:update(event, param1, param2, param3)
+                kolos:update(event, param1, param2, param3)
             end
         end)
 end)
