@@ -2,7 +2,7 @@
 local Input = {}
 Input.__index = Input
 
-function Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)
+function Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -17,6 +17,7 @@ function Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, hist
         default = params.default
         callback = params.callback
         deactivateOnEnter = params.deactivateOnEnter
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -37,6 +38,7 @@ function Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, hist
     obj.completionIndex = 0
     obj.callback = callback
     obj.deactivateOnEnter = deactivateOnEnter ~= false
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -96,6 +98,12 @@ end
 
 function Input:setDeactivateOnEnter(deactivateOnEnter)
     self.deactivateOnEnter = deactivateOnEnter
+    self.frame:draw()
+    return self
+end
+
+function Input:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

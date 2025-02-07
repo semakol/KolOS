@@ -2,7 +2,7 @@
 local Dropdown = {}
 Dropdown.__index = Dropdown
 
-function Dropdown:new(x, y, width, items, bgColor, textColor)
+function Dropdown:new(x, y, width, items, bgColor, textColor, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -11,6 +11,7 @@ function Dropdown:new(x, y, width, items, bgColor, textColor)
         items = params.items
         bgColor = params.bgColor
         textColor = params.textColor
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -22,6 +23,7 @@ function Dropdown:new(x, y, width, items, bgColor, textColor)
     obj.bgColor = bgColor or colors.gray
     obj.textColor = textColor or colors.white
     obj.scrollOffset = 0
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -51,31 +53,36 @@ function Dropdown:setColors(bgColor, textColor)
     return self
 end
 
+function Dropdown:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
+    self.frame:draw()
+    return self
+end
+
 function Dropdown:draw(canvas)
     local function truncateText(text, maxLength)
         if #text <= maxLength then
-            return text
+            return text .. string.rep(" ", maxLength - #text)
         else
             local halfLength = math.floor((maxLength - 2) / 2)
             return text:sub(1, halfLength) .. ".." .. text:sub(-halfLength)
         end
     end
 
-    for i = 1, self.width do
-        local x = self.x + i - 1
-        local y = self.y
-        if canvas[y] and canvas[y][x] then
-            canvas[y][x].bgColor = self.bgColor
-            if i == self.width then
-                canvas[y][x].char = "V"
-            else
-                local truncatedItem = truncateText(self.items[self.selectedIndex], self.width - 1)
-                local char = truncatedItem:sub(i, i)
-                canvas[y][x].char = char ~= "" and char or " "
+    local function drawItem(x, y, text, bgColor, textColor)
+        for i = 1, self.width do
+            local char = text:sub(i, i) or " "
+            if canvas[y] and canvas[y][x + i - 1] then
+                canvas[y][x + i - 1].bgColor = bgColor
+                canvas[y][x + i - 1].char = char
+                canvas[y][x + i - 1].charColor = textColor
             end
-            canvas[y][x].charColor = self.textColor
         end
     end
+
+    local selectedItem = self.items[self.selectedIndex] or ""
+    local truncatedItem = truncateText(selectedItem, self.width - 1)
+    drawItem(self.x, self.y, truncatedItem .. "V", self.bgColor, self.textColor)
 
     if self.expanded then
         local maxVisibleItems = math.min(#self.items, 5)
@@ -87,16 +94,9 @@ function Dropdown:draw(canvas)
         for i = 1, maxVisibleItems do
             local itemIndex = i + self.scrollOffset
             local y = startY + i - 1
-            for j = 1, self.width do
-                local x = self.x + j - 1
-                if canvas[y] and canvas[y][x] then
-                    canvas[y][x].bgColor = self.bgColor
-                    local truncatedItem = truncateText(self.items[itemIndex], self.width)
-                    local char = truncatedItem:sub(j, j)
-                    canvas[y][x].char = char ~= "" and char or " "
-                    canvas[y][x].charColor = self.textColor
-                end
-            end
+            local item = self.items[itemIndex] or ""
+            local truncatedItem = truncateText(item, self.width)
+            drawItem(self.x, y, truncatedItem, self.bgColor, self.textColor)
         end
     end
 end

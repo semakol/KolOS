@@ -2,7 +2,7 @@
 local Textarea = {}
 Textarea.__index = Textarea
 
-function Textarea:new(x, y, width, height, bgColor, textColor)
+function Textarea:new(x, y, width, height, bgColor, textColor, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -11,6 +11,7 @@ function Textarea:new(x, y, width, height, bgColor, textColor)
         height = params.height
         bgColor = params.bgColor
         textColor = params.textColor
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 1
@@ -23,6 +24,7 @@ function Textarea:new(x, y, width, height, bgColor, textColor)
     obj.bgColor = bgColor or colors.white
     obj.textColor = textColor or colors.black
     obj.scrollOffset = 0
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -44,6 +46,12 @@ end
 function Textarea:setColors(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
+    self.frame:draw()
+    return self
+end
+
+function Textarea:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

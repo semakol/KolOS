@@ -1,7 +1,7 @@
 local Circle = {}
 Circle.__index = Circle
 
-function Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
+function Circle:new(x1, y1, x2, y2, color, fill, char, charColor, zIndex)
     if type(x1) == "table" then
         local params = x1
         x1 = params.x1
@@ -12,6 +12,7 @@ function Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
         fill = params.fill
         char = params.char
         charColor = params.charColor
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x1 = x1 or 0
@@ -22,6 +23,7 @@ function Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
     obj.fill = fill or false
     obj.char = char or " "
     obj.charColor = charColor or colors.white
+    obj.zIndex = zIndex or 0
     obj.pixels = {}
     obj:update()
     return obj
@@ -53,6 +55,12 @@ end
 
 function Circle:setChar(char)
     self.char = char or self.char
+    self.frame:draw()
+    return self
+end
+
+function Circle:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

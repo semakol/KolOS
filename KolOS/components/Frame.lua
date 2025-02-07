@@ -35,69 +35,68 @@ function Frame:new(x, y, width, height, parent, name)
     end
     return obj
 end
-
-function Frame:addLabel(x, y, text, textColor)
-    local label = Label:new(x, y, text, textColor)
+function Frame:addLabel(x, y, text, textColor, zIndex)
+    local label = Label:new(x, y, text, textColor, zIndex or #self.components)
     label.frame = self
     table.insert(self.components, label)
     return label
 end
 
-function Frame:addButton(x, y, label, callback, bgColor, textColor, width, height)
-    local button = Button:new(x, y, label, callback, bgColor, textColor, width, height)
+function Frame:addButton(x, y, label, callback, bgColor, textColor, width, height, zIndex)
+    local button = Button:new(x, y, label, callback, bgColor, textColor, width, height, zIndex or #self.components)
     button.frame = self
     table.insert(self.components, button)
     return button
 end
 
 function Frame:addInput(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback,
-                        deactivateOnEnter)
+                        deactivateOnEnter, zIndex)
     local input = Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default,
-        callback, deactivateOnEnter)
+        callback, deactivateOnEnter, zIndex or #self.components)
     input.frame = self
     table.insert(self.components, input)
     return input
 end
 
-function Frame:addTextarea(x, y, width, height, bgColor, textColor)
-    local textarea = Textarea:new(x, y, width, height, bgColor, textColor)
+function Frame:addTextarea(x, y, width, height, bgColor, textColor, zIndex)
+    local textarea = Textarea:new(x, y, width, height, bgColor, textColor, zIndex or #self.components)
     textarea.frame = self
     table.insert(self.components, textarea)
     return textarea
 end
 
-function Frame:addRect(x, y, width, height, bgColor, fill, char, charColor)
-    local rect = Rect:new(x, y, width, height, bgColor, fill, char, charColor)
+function Frame:addRect(x, y, width, height, bgColor, fill, char, charColor, zIndex)
+    local rect = Rect:new(x, y, width, height, bgColor, fill, char, charColor, zIndex or #self.components)
     rect.frame = self
     table.insert(self.components, rect)
     return rect
 end
 
-function Frame:addDropdown(x, y, width, items, bgColor, textColor)
-    local dropdown = Dropdown:new(x, y, width, items, bgColor, textColor)
+function Frame:addDropdown(x, y, width, items, bgColor, textColor, zIndex)
+    local dropdown = Dropdown:new(x, y, width, items, bgColor, textColor, zIndex or #self.components)
     dropdown.frame = self
     table.insert(self.components, dropdown)
     return dropdown
 end
 
 function Frame:addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor,
-                         inactiveTextColor)
+                         inactiveTextColor, zIndex)
     local switch = Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor,
-        activeTextColor, inactiveTextColor)
+        activeTextColor, inactiveTextColor, zIndex or #self.components)
     switch.frame = self
     table.insert(self.components, switch)
     return switch
 end
 
-function Frame:addLine(x1, y1, x2, y2, color, bgColor, char)
-    local line = Line:new(x1, y1, x2, y2, color, bgColor, char)
+function Frame:addLine(x1, y1, x2, y2, color, bgColor, char, zIndex)
+    local line = Line:new(x1, y1, x2, y2, color, bgColor, char, zIndex or #self.components)
     line.frame = self
     table.insert(self.components, line)
     return line
 end
 
-function Frame:addCircle(x1, y1, x2, y2, color, fill, char, charColor)
-    local circle = Circle:new(x1, y1, x2, y2, color, fill, char, charColor)
+function Frame:addCircle(x1, y1, x2, y2, color, fill, char, charColor, zIndex)
+    local circle = Circle:new(x1, y1, x2, y2, color, fill, char, charColor, zIndex or #self.components)
     circle.frame = self
     table.insert(self.components, circle)
     return circle
@@ -115,6 +114,12 @@ function Frame:draw()
             self.canvas[y][x] = { bgColor = colors.black, char = " ", charColor = colors.white }
         end
     end
+
+    -- Sort components by zIndex
+    table.sort(self.components, function(a, b)
+        return (a.zIndex or 0) < (b.zIndex or 0)
+    end)
+
     -- Draw components
     for _, comp in ipairs(self.components) do
         if comp.draw then

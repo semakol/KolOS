@@ -1,7 +1,7 @@
 local Switch = {}
 Switch.__index = Switch
 
-function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)
+function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -14,6 +14,7 @@ function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgCol
         inactiveBgColor = params.inactiveBgColor
         activeTextColor = params.activeTextColor
         inactiveTextColor = params.inactiveTextColor
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -26,6 +27,7 @@ function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgCol
     obj.inactiveTextColor = inactiveTextColor or colors.white
     obj.activeText = activeText or "[ON]"
     obj.inactiveText = inactiveText or "[OFF]"
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -60,6 +62,12 @@ end
 function Switch:setTexts(activeText, inactiveText)
     self.activeText = activeText or self.activeText
     self.inactiveText = inactiveText or self.inactiveText
+    self.frame:draw()
+    return self
+end
+
+function Switch:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

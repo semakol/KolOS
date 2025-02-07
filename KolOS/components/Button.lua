@@ -2,7 +2,7 @@ local Button = {}
 Button.__index = Button
 
 -- Button class
-function Button:new(x, y, label, callback, bgColor, textColor, width, height)
+function Button:new(x, y, label, callback, bgColor, textColor, width, height, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -13,6 +13,7 @@ function Button:new(x, y, label, callback, bgColor, textColor, width, height)
         textColor = params.textColor
         width = params.width
         height = params.height
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -23,6 +24,7 @@ function Button:new(x, y, label, callback, bgColor, textColor, width, height)
     obj.textColor = textColor or colors.white
     obj.width = width or #obj.label + 2
     obj.height = height or 1
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -51,6 +53,12 @@ end
 function Button:setBgColor(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
+    self.frame:draw()
+    return self
+end
+
+function Button:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

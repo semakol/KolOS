@@ -1,7 +1,7 @@
 local Line = {}
 Line.__index = Line
 
-function Line:new(x1, y1, x2, y2, color, bgColor, char)
+function Line:new(x1, y1, x2, y2, color, bgColor, char, zIndex)
     if type(x1) == "table" then
         local params = x1
         x1 = params.x1
@@ -11,6 +11,7 @@ function Line:new(x1, y1, x2, y2, color, bgColor, char)
         color = params.color
         bgColor = params.bgColor
         char = params.char
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x1 = x1 or 0
@@ -20,6 +21,7 @@ function Line:new(x1, y1, x2, y2, color, bgColor, char)
     obj.color = color or colors.white
     obj.bgColor = bgColor or colors.black
     obj.char = char or "-"
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -41,6 +43,12 @@ end
 
 function Line:setChar(char)
     self.char = char or self.char
+    self.frame:draw()
+    return self
+end
+
+function Line:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end

@@ -2,7 +2,7 @@
 local Rect = {}
 Rect.__index = Rect
 
-function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
+function Rect:new(x, y, width, height, bgColor, fill, char, charColor, zIndex)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -13,6 +13,7 @@ function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
         fill = params.fill
         char = params.char
         charColor = params.charColor
+        zIndex = params.zIndex
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -23,6 +24,7 @@ function Rect:new(x, y, width, height, bgColor, fill, char, charColor)
     obj.fill = fill or false
     obj.char = char or " "
     obj.charColor = charColor or colors.white
+    obj.zIndex = zIndex or 0
     return obj
 end
 
@@ -55,6 +57,12 @@ end
 
 function Rect:setFill(fill)
     self.fill = fill or self.fill
+    self.frame:draw()
+    return self
+end
+
+function Rect:setZIndex(zIndex)
+    self.zIndex = zIndex or self.zIndex
     self.frame:draw()
     return self
 end
