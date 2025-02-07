@@ -42,8 +42,8 @@ function Frame:setVisible(visible)
     self.visible = visible or true
 end
 
-function Frame:addLabel(x, y, text, textColor, zIndex)
-    local label = Label:new(x, y, text, textColor, zIndex or #self.components)
+function Frame:addLabel(x, y, text, textColor, bgColor, zIndex)
+    local label = Label:new(x, y, text, textColor, bgColor, zIndex or #self.components)
     label.frame = self
     table.insert(self.components, label)
     return label

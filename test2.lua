@@ -80,9 +80,9 @@ local circle = frame:addCircle()
     :setFill(true)
 
 local image = frame:addImage()
-    :setPosition(41, 4)
+    :setPosition(1, 1)
     :loadFile("img_test")
-    :setZIndex(100)
+    -- :setZIndex(100)
 
 local ok, error = pcall(function ()
     parallel.waitForAny(
