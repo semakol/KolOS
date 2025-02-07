@@ -12,8 +12,8 @@ function GUI:new(frames)
     return obj
 end
 
-function GUI:addFrame(x, y, width, height)
-    local frame = Frame:new(x, y, width, height)
+function GUI:addFrame(x, y, width, height, parent, name)
+    local frame = Frame:new(x, y, width, height, parent, name)
     table.insert(self.frames, frame)
     return frame
 end
