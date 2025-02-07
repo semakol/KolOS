@@ -28,17 +28,20 @@ function Line:setCoordinates(x1, y1, x2, y2)
     self.y1 = y1 or self.y1
     self.x2 = x2 or self.x2
     self.y2 = y2 or self.y2
+    self.frame:draw()
     return self
 end
 
 function Line:setColors(color, bgColor)
     self.color = color or self.color
     self.bgColor = bgColor or self.bgColor
+    self.frame:draw()
     return self
 end
 
 function Line:setChar(char)
     self.char = char or self.char
+    self.frame:draw()
     return self
 end
 

@@ -32,16 +32,19 @@ end
 function Switch:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    self.frame:draw()
     return self
 end
 
 function Switch:setState(state)
     self.state = state
+    self.frame:draw()
     return self
 end
 
 function Switch:setCallback(callback)
     self.callback = callback
+    self.frame:draw()
     return self
 end
 
@@ -50,12 +53,14 @@ function Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inact
     self.inactiveBgColor = inactiveBgColor or self.inactiveBgColor
     self.activeTextColor = activeTextColor or self.activeTextColor
     self.inactiveTextColor = inactiveTextColor or self.inactiveTextColor
+    self.frame:draw()
     return self
 end
 
 function Switch:setTexts(activeText, inactiveText)
     self.activeText = activeText or self.activeText
     self.inactiveText = inactiveText or self.inactiveText
+    self.frame:draw()
     return self
 end
 

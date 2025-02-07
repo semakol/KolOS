@@ -43,34 +43,40 @@ end
 function Input:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    self.frame:draw()
     return self
 end
 
 function Input:setSize(width, maxLength)
     self.width = width or self.width
     self.maxLength = maxLength or self.maxLength
+    self.frame:draw()
     return self
 end
 
 function Input:setColors(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
+    self.frame:draw()
     return self
 end
 
 function Input:setReplaceChar(replaceChar)
     self.replaceChar = replaceChar
+    self.frame:draw()
     return self
 end
 
 function Input:setHistory(history)
     self.history = history or {}
     self.historyIndex = #self.history + 1
+    self.frame:draw()
     return self
 end
 
 function Input:setCompleteFn(completeFn)
     self.completeFn = completeFn
+    self.frame:draw()
     return self
 end
 
@@ -78,22 +84,26 @@ function Input:setDefault(default)
     self.text = default or ""
     self.cursorPos = #self.text
     self.scrollOffset = 0
+    self.frame:draw()
     return self
 end
 
 function Input:setCallback(callback)
     self.callback = callback
+    self.frame:draw()
     return self
 end
 
 function Input:setDeactivateOnEnter(deactivateOnEnter)
     self.deactivateOnEnter = deactivateOnEnter
+    self.frame:draw()
     return self
 end
 
 function Input:addHistory(item)
     table.insert(self.history, item)
     self.historyIndex = #self.history + 1
+    self.frame:draw()
     return self
 end
 

@@ -29,12 +29,14 @@ end
 function Button:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    self.frame:draw()
     return self
 end
 
 function Button:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
+    self.frame:draw()
     return self
 end
 
@@ -42,17 +44,20 @@ function Button:setLabel(label, width, height)
     self.label = label or self.label
     self.width = width or #self.label + 2
     self.height = height or 1
+    self.frame:draw()
     return self
 end
 
 function Button:setBgColor(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
+    self.frame:draw()
     return self
 end
 
 function Button:addCallback(callback)
     table.insert(self.callback, callback or function() end)
+    self.frame:draw()
     return self
 end
 

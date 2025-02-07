@@ -33,23 +33,27 @@ function Circle:setPosition(x1, y1, x2, y2)
     self.x2 = x2 or self.x2
     self.y2 = y2 or self.y2
     self:update()
+    self.frame:draw()
     return self
 end
 
 function Circle:setColors(color, charColor)
     self.color = color or self.color
     self.charColor = charColor or self.charColor
+    self.frame:draw()
     return self
 end
 
 function Circle:setFill(fill)
     self.fill = fill or self.fill
     self:update()
+    self.frame:draw()
     return self
 end
 
 function Circle:setChar(char)
     self.char = char or self.char
+    self.frame:draw()
     return self
 end
 
