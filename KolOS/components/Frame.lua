@@ -13,6 +13,7 @@ local Dropdown = require("Dropdown")
 local Switch = require("Switch")
 local Line = require("Line")
 local Circle = require("Circle")
+local Image = require("Image")
 
 -- Frame class
 function Frame:new(x, y, width, height, parent, name)
@@ -22,11 +23,12 @@ function Frame:new(x, y, width, height, parent, name)
     width = width or termWidth
     height = height or termHeight
     local obj = setmetatable({}, self)
-    obj.win = window.create(parent or term.current(), x, y, width, height)
+    obj.win = parent or term.current()
     obj.name = name
     obj.components = {}
     obj.keyHandler = KeyHandler:new()
     obj.canvas = {}
+    obj.visible = true
     for i = 1, height do
         obj.canvas[i] = {}
         for j = 1, width do
@@ -35,6 +37,11 @@ function Frame:new(x, y, width, height, parent, name)
     end
     return obj
 end
+
+function Frame:setVisible(visible)
+    self.visible = visible or true
+end
+
 function Frame:addLabel(x, y, text, textColor, zIndex)
     local label = Label:new(x, y, text, textColor, zIndex or #self.components)
     label.frame = self
@@ -102,11 +109,19 @@ function Frame:addCircle(x1, y1, x2, y2, color, fill, char, charColor, zIndex)
     return circle
 end
 
+function Frame:addImage(x, y, filePath, zIndex)
+    local image = Image:new(x, y, filePath, zIndex or #self.components)
+    image.frame = self
+    table.insert(self.components, image)
+    return image
+end
+
 function Frame:addKeyHandler()
     return self.keyHandler
 end
 
 function Frame:draw()
+    if not self.visible then return end
     local win = self.win
     -- Clear the canvas
     for y, row in ipairs(self.canvas) do
@@ -130,12 +145,18 @@ function Frame:draw()
     for y, row in ipairs(self.canvas) do
         for x, pixel in ipairs(row) do
             win.setCursorPos(x, y)
-            win.setBackgroundColor(pixel.bgColor)
-            win.setTextColor(pixel.charColor)
-            win.write(pixel.char)
+            if pixel.bgColor ~= "alpha" and pixel.bgColor then
+                win.setBackgroundColor(pixel.bgColor)
+            end
+            if pixel.charColor then
+                win.setTextColor(pixel.charColor)
+            end
+            if pixel.char then
+                win.write(pixel.char)
+            end
         end
     end
-    win.redraw()
+    -- win.redraw()
 end
 
 function Frame:handleClick(x, y)
@@ -165,6 +186,7 @@ function Frame:handleKey(key)
 end
 
 function Frame:update(event, param1, param2, param3)
+    if not self.visible then return end
     if self.name then
         if event == "monitor_touch" and self.name == param1 then
             self:handleClick(param2, param3)

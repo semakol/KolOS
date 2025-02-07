@@ -1,3 +1,5 @@
+
+
 local kolos = require("KolOS")
 
 local monitor = peripheral.wrap("left")

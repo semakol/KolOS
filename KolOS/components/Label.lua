@@ -15,7 +15,7 @@ function Label:new(x, y, text, textColor, bgColor, zIndex)
     local obj = setmetatable({}, self)
     obj.x = x or 1
     obj.y = y or 1
-    obj.text = text or ""
+    obj.text = text or " "
     obj.textColor = textColor or colors.white
     obj.bgColor = bgColor or colors.black
     obj.zIndex = zIndex or 0
