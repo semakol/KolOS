@@ -1,235 +1,183 @@
 # KolOS Documentation
 
-## GUI
+## Components
 
-### Methods
-- `new(x, y, width, height, parent)`
-: Creates a new GUI instance.
-- `addLabel(x, y, text, textColor)`
-: Adds a label to the GUI.
-- `addButton(x, y, label, callback, bgColor, textColor, width, height)`
-: Adds a button to the GUI.
-- `addInput(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)`
-: Adds an input field to the GUI.
-- `addTextarea(x, y, width, height, bgColor, textColor)`
-: Adds a textarea to the GUI.
-- `addRect(x, y, width, height, bgColor, fill, char, charColor)`
-: Adds a rectangle to the GUI.
-- `addDropdown(x, y, width, items, bgColor, textColor)`
-: Adds a dropdown to the GUI.
-- `addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)`
-: Adds a switch to the GUI.
-- `addLine(x1, y1, x2, y2, color, bgColor, char)`
-: Adds a line to the GUI.
-- `addCircle(x1, y1, x2, y2, color, fill, char, charColor)`
-: Adds a circle to the GUI.
-- `addKeyHandler()`
-: Adds a key handler to the GUI.
-- `draw()`
-: Draws the GUI.
-- `handleClick(x, y)`
-: Handles mouse click events.
-- `handleKey(key)`
-: Handles key events.
-- `update(event, param1, param2, param3)`
-: Updates the GUI based on events.
-- `run(...)`
-: Runs the GUI event loop.
+### Label
+A simple text label.
 
-## Button
+**Methods:**
+- `Label:new(x, y, text, textColor, bgColor, zIndex)`
+- `Label:setPosition(x, y)`
+- `Label:setText(newText)`
+- `Label:setColors(textColor, bgColor)`
+- `Label:setZIndex(zIndex)`
+- `Label:draw(canvas)`
 
-### Methods
-- `new(x, y, label, callback, bgColor, textColor, width, height)`
-: Creates a new Button instance.
-- `setPosition(x, y)`
-: Sets the position of the button.
-- `setSize(width, height)`
-: Sets the size of the button.
-- `setLabel(label, width, height)`
-: Sets the label and size of the button.
-- `setBgColor(bgColor, textColor)`
-: Sets the background and text color of the button.
-- `addCallback(callback)`
-: Adds a callback function to the button.
-- `draw(canvas)`
-: Draws the button on the canvas.
-- `handleClick(mx, my)`
-: Handles mouse click events.
+### KeyHandler
+Handles key events.
 
-## Input
+**Methods:**
+- `KeyHandler:new()`
+- `KeyHandler:registerKey(key, action)`
+- `KeyHandler:handleKey(key)`
 
-### Methods
-- `new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter)`
-: Creates a new Input instance.
-- `setPosition(x, y)`
-: Sets the position of the input field.
-- `setSize(width, maxLength)`
-: Sets the size and maximum length of the input field.
-- `setColors(bgColor, textColor)`
-: Sets the background and text color of the input field.
-- `setReplaceChar(replaceChar)`
-: Sets the replace character of the input field.
-- `setHistory(history)`
-: Sets the history of the input field.
-- `setCompleteFn(completeFn)`
-: Sets the completion function of the input field.
-- `setDefault(default)`
-: Sets the default text of the input field.
-- `setCallback(callback)`
-: Sets the callback function of the input field.
-- `setDeactivateOnEnter(deactivateOnEnter)`
-: Sets whether the input field deactivates on enter.
-- `addHistory(item)`
-: Adds an item to the history of the input field.
-- `draw(canvas)`
-: Draws the input field on the canvas.
-- `handleClick(mx, my)`
-: Handles mouse click events.
-- `handleInput(event, param)`
-: Handles input events.
+### Input
+A text input field.
 
-## Label
+**Methods:**
+- `Input:new(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter, zIndex)`
+- `Input:setPosition(x, y)`
+- `Input:setSize(width, maxLength)`
+- `Input:setColors(bgColor, textColor)`
+- `Input:setReplaceChar(replaceChar)`
+- `Input:setHistory(history)`
+- `Input:setCompleteFn(completeFn)`
+- `Input:setDefault(default)`
+- `Input:setCallback(callback)`
+- `Input:setDeactivateOnEnter(deactivateOnEnter)`
+- `Input:setZIndex(zIndex)`
+- `Input:addHistory(item)`
+- `Input:draw(canvas)`
+- `Input:handleClick(mx, my)`
+- `Input:updateCompletions()`
+- `Input:handleInput(event, param)`
 
-### Methods
-- `new(x, y, text, textColor, bgColor)`
-: Creates a new Label instance.
-- `setPosition(x, y)`
-: Sets the position of the label.
-- `setText(newText)`
-: Sets the text of the label.
-- `setColors(textColor, bgColor)`
-: Sets the text and background color of the label.
-- `draw(canvas)`
-: Draws the label on the canvas.
+### Image
+Displays an image.
 
-## KeyHandler
+**Methods:**
+- `Image:new(x, y, filePath, zIndex)`
+- `Image:loadFile(filePath)`
+- `Image:unserialize(content)`
+- `Image:draw(canvas)`
+- `Image:setPosition(x, y)`
+- `Image:setZIndex(zIndex)`
 
-### Methods
-- `new()`
-: Creates a new KeyHandler instance.
-- `registerKey(key, action)`
-: Registers a key with an action.
-- `handleKey(key)`
-: Handles key events.
+### Frame
+A container for other components.
 
-## Textarea
+**Methods:**
+- `Frame:new(x, y, width, height, parent, name)`
+- `Frame:setVisible(visible)`
+- `Frame:addLabel(x, y, text, textColor, zIndex)`
+- `Frame:addButton(x, y, label, callback, bgColor, textColor, width, height, zIndex)`
+- `Frame:addInput(x, y, width, maxLength, bgColor, textColor, replaceChar, history, completeFn, default, callback, deactivateOnEnter, zIndex)`
+- `Frame:addTextarea(x, y, width, height, bgColor, textColor, zIndex)`
+- `Frame:addRect(x, y, width, height, bgColor, fill, char, charColor, zIndex)`
+- `Frame:addDropdown(x, y, width, items, bgColor, textColor, zIndex)`
+- `Frame:addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)`
+- `Frame:addLine(x1, y1, x2, y2, color, bgColor, char, zIndex)`
+- `Frame:addCircle(x1, y1, x2, y2, color, fill, char, charColor, zIndex)`
+- `Frame:addImage(x, y, filePath, zIndex)`
+- `Frame:addKeyHandler()`
+- `Frame:draw()`
+- `Frame:handleClick(x, y)`
+- `Frame:handleKey(key)`
+- `Frame:update(event, param1, param2, param3)`
 
-### Methods
-- `new(x, y, width, height, bgColor, textColor)`
-: Creates a new Textarea instance.
-- `setPosition(x, y)`
-: Sets the position of the textarea.
-- `setSize(width, height)`
-: Sets the size of the textarea.
-- `setColors(bgColor, textColor)`
-: Sets the background and text color of the textarea.
-- `draw(canvas)`
-: Draws the textarea on the canvas.
-- `updateTextList()`
-: Updates the text list for the textarea.
-- `setText(newText)`
-: Sets the text of the textarea.
-- `addLine(line)`
-: Adds a line to the textarea.
-- `scrollUp()`
-: Scrolls the textarea up.
-- `scrollDown()`
-: Scrolls the textarea down.
-- `isMouseOver(mx, my)`
-: Checks if the mouse is over the textarea.
+### Dropdown
+A dropdown menu.
 
-## Rect
+**Methods:**
+- `Dropdown:new(x, y, width, items, bgColor, textColor, zIndex)`
+- `Dropdown:setPosition(x, y)`
+- `Dropdown:setSize(width)`
+- `Dropdown:setItems(items)`
+- `Dropdown:setColors(bgColor, textColor)`
+- `Dropdown:setZIndex(zIndex)`
+- `Dropdown:draw(canvas)`
+- `Dropdown:handleClick(mx, my)`
+- `Dropdown:handleScroll(direction)`
+- `Dropdown:handleKey(key)`
+- `Dropdown:isExpanded()`
+- `Dropdown:getSelectedOption()`
 
-### Methods
-- `new(x, y, width, height, bgColor, fill, char, charColor)`
-: Creates a new Rect instance.
-- `setPosition(x, y)`
-: Sets the position of the rectangle.
-- `setSize(width, height)`
-: Sets the size of the rectangle.
-- `setColors(bgColor, charColor)`
-: Sets the background and character color of the rectangle.
-- `setChar(char)`
-: Sets the character of the rectangle.
-- `setFill(fill)`
-: Sets the fill property of the rectangle.
-- `draw(canvas)`
-: Draws the rectangle on the canvas.
+### Circle
+Draws a circle.
 
-## Dropdown
+**Methods:**
+- `Circle:new(x1, y1, x2, y2, color, fill, char, charColor, zIndex)`
+- `Circle:setPosition(x1, y1, x2, y2)`
+- `Circle:setColors(color, charColor)`
+- `Circle:setFill(fill)`
+- `Circle:setChar(char)`
+- `Circle:setZIndex(zIndex)`
+- `Circle:update()`
+- `Circle:draw(canvas)`
 
-### Methods
-- `new(x, y, width, items, bgColor, textColor)`
-: Creates a new Dropdown instance.
-- `setPosition(x, y)`
-: Sets the position of the dropdown.
-- `setSize(width)`
-: Sets the width of the dropdown.
-- `setItems(items)`
-: Sets the items of the dropdown.
-- `setColors(bgColor, textColor)`
-: Sets the background and text color of the dropdown.
-- `draw(canvas)`
-: Draws the dropdown on the canvas.
-- `handleClick(mx, my)`
-: Handles mouse click events.
-- `handleScroll(direction)`
-: Handles scroll events.
-- `handleKey(key)`
-: Handles key events.
-- `isExpanded()`
-: Checks if the dropdown is expanded.
-- `getSelectedOption()`
-: Gets the selected option of the dropdown.
+### Button
+A clickable button.
 
-## Switch
+**Methods:**
+- `Button:new(x, y, label, callback, bgColor, textColor, width, height, zIndex)`
+- `Button:setPosition(x, y)`
+- `Button:setSize(width, height)`
+- `Button:setLabel(label, width, height)`
+- `Button:setBgColor(bgColor, textColor)`
+- `Button:setZIndex(zIndex)`
+- `Button:addCallback(callback)`
+- `Button:draw(canvas)`
+- `Button:handleClick(mx, my)`
 
-### Methods
-- `new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)`
-: Creates a new Switch instance.
-- `setPosition(x, y)`
-: Sets the position of the switch.
-- `setState(state)`
-: Sets the state of the switch.
-- `setCallback(callback)`
-: Sets the callback function of the switch.
-- `setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)`
-: Sets the colors of the switch.
-- `setTexts(activeText, inactiveText)`
-: Sets the texts of the switch.
-- `draw(canvas)`
-: Draws the switch on the canvas.
-- `handleClick(x, y)`
-: Handles mouse click events.
+### GUI
+Manages frames and events.
 
-## Line
+**Methods:**
+- `GUI:new(frames)`
+- `GUI:addFrame(x, y, width, height, parent, name)`
+- `GUI:update(event, param1, param2, param3)`
+- `GUI:run(...)`
 
-### Methods
-- `new(x1, y1, x2, y2, color, bgColor, char)`
-: Creates a new Line instance.
-- `setCoordinates(x1, y1, x2, y2)`
-: Sets the coordinates of the line.
-- `setColors(color, bgColor)`
-: Sets the colors of the line.
-- `setChar(char)`
-: Sets the character of the line.
-- `draw(canvas)`
-: Draws the line on the canvas.
+### Textarea
+A scrollable text area.
 
-## Circle
+**Methods:**
+- `Textarea:new(x, y, width, height, bgColor, textColor, zIndex)`
+- `Textarea:setPosition(x, y)`
+- `Textarea:setSize(width, height)`
+- `Textarea:setColors(bgColor, textColor)`
+- `Textarea:setZIndex(zIndex)`
+- `Textarea:draw(canvas)`
+- `Textarea:setText(newText)`
+- `Textarea:addLine(line)`
+- `Textarea:scrollUp()`
+- `Textarea:scrollDown()`
+- `Textarea:isMouseOver(mx, my)`
 
-### Methods
-- `new(x1, y1, x2, y2, color, fill, char, charColor)`
-: Creates a new Circle instance.
-- `setPosition(x1, y1, x2, y2)`
-: Sets the position of the circle.
-- `setColors(color, charColor)`
-: Sets the colors of the circle.
-- `setFill(fill)`
-: Sets the fill property of the circle.
-- `setChar(char)`
-: Sets the character of the circle.
-- `update()`
-: Updates the circle's pixels.
-- `draw(canvas)`
-: Draws the circle on the canvas.
+### Switch
+A toggle switch.
+
+**Methods:**
+- `Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)`
+- `Switch:setPosition(x, y)`
+- `Switch:setState(state)`
+- `Switch:setCallback(callback)`
+- `Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)`
+- `Switch:setTexts(activeText, inactiveText)`
+- `Switch:setZIndex(zIndex)`
+- `Switch:draw(canvas)`
+- `Switch:handleClick(x, y)`
+
+### Rect
+Draws a rectangle.
+
+**Methods:**
+- `Rect:new(x, y, width, height, bgColor, fill, char, charColor, zIndex)`
+- `Rect:setPosition(x, y)`
+- `Rect:setSize(width, height)`
+- `Rect:setColors(bgColor, charColor)`
+- `Rect:setChar(char)`
+- `Rect:setFill(fill)`
+- `Rect:setZIndex(zIndex)`
+- `Rect:draw(canvas)`
+
+### Line
+Draws a line.
+
+**Methods:**
+- `Line:new(x1, y1, x2, y2, color, bgColor, char, zIndex)`
+- `Line:setCoordinates(x1, y1, x2, y2)`
+- `Line:setColors(color, bgColor)`
+- `Line:setChar(char)`
+- `Line:setZIndex(zIndex)`
+- `Line:draw(canvas)`
