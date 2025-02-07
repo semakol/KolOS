@@ -57,7 +57,9 @@ function Line:draw(canvas)
     if self.y1 == self.y2 then
         for x = self.x1, self.x2 do
             if canvas[self.y1] and canvas[self.y1][x] then
-                canvas[self.y1][x].bgColor = self.bgColor
+                if self.bgColor ~= "alpha" then
+                    canvas[self.y1][x].bgColor = self.bgColor
+                end
                 canvas[self.y1][x].char = self.char
                 canvas[self.y1][x].charColor = self.color
             end
@@ -65,7 +67,9 @@ function Line:draw(canvas)
     elseif self.x1 == self.x2 then
         for y = self.y1, self.y2 do
             if canvas[y] and canvas[y][self.x1] then
-                canvas[y][self.x1].bgColor = self.bgColor
+                if self.bgColor ~= "alpha" then
+                    canvas[y][self.x1].bgColor = self.bgColor
+                end
                 canvas[y][self.x1].char = self.char
                 canvas[y][self.x1].charColor = self.color
             end
@@ -82,7 +86,9 @@ function Line:draw(canvas)
 
         while true do
             if canvas[y] and canvas[y][x] then
-                canvas[y][x].bgColor = self.bgColor
+                if self.bgColor ~= "alpha" then
+                    canvas[y][x].bgColor = self.bgColor
+                end
                 canvas[y][x].char = self.char
                 canvas[y][x].charColor = self.color
             end

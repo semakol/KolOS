@@ -75,7 +75,9 @@ function Button:draw(canvas)
         for j = 0, self.width - 1 do
             local x = self.x + j
             if canvas[y] and canvas[y][x] then
-                canvas[y][x].bgColor = self.bgColor
+                if self.bgColor ~= "alpha" then
+                    canvas[y][x].bgColor = self.bgColor
+                end
                 if i == math.floor(self.height / 2) and j >= math.floor((self.width - #self.label) / 2) and j < math.floor((self.width - #self.label) / 2) + #self.label then
                     canvas[y][x].char = self.label:sub(j - math.floor((self.width - #self.label) / 2) + 1, j - math.floor((self.width - #self.label) / 2) + 1)
                 else

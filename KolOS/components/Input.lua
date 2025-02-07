@@ -120,7 +120,9 @@ function Input:draw(canvas)
         local x = self.x + i - 1
         local y = self.y
         if canvas[y] and canvas[y][x] then
-            canvas[y][x].bgColor = self.bgColor
+            if self.bgColor ~= "alpha" then
+                canvas[y][x].bgColor = self.bgColor
+            end
             local char = self.text:sub(self.scrollOffset + i, self.scrollOffset + i)
             if self.replaceChar then
                 char = char ~= "" and self.replaceChar or " "

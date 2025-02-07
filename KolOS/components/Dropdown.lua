@@ -73,7 +73,9 @@ function Dropdown:draw(canvas)
         for i = 1, self.width do
             local char = text:sub(i, i) or " "
             if canvas[y] and canvas[y][x + i - 1] then
-                canvas[y][x + i - 1].bgColor = bgColor
+                if bgColor ~= "alpha" then
+                    canvas[y][x + i - 1].bgColor = bgColor
+                end
                 canvas[y][x + i - 1].char = char
                 canvas[y][x + i - 1].charColor = textColor
             end

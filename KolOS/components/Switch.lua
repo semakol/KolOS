@@ -79,11 +79,15 @@ function Switch:draw(canvas)
         local y = self.y
         if canvas[y] and canvas[y][x] then
             if self.state then
-                canvas[y][x].bgColor = self.activeBgColor
+                if self.activeBgColor ~= "alpha" then
+                    canvas[y][x].bgColor = self.activeBgColor
+                end
                 canvas[y][x].charColor = self.activeTextColor
                 canvas[y][x].char = self.activeText:sub(i + 1, i + 1)
             else
-                canvas[y][x].bgColor = self.inactiveBgColor
+                if self.inactiveBgColor ~= "alpha" then
+                    canvas[y][x].bgColor = self.inactiveBgColor
+                end
                 canvas[y][x].charColor = self.inactiveTextColor
                 canvas[y][x].char = self.inactiveText:sub(i + 1, i + 1)
             end

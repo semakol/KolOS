@@ -106,7 +106,9 @@ function Circle:draw(canvas)
         local x = pixel[1]
         local y = pixel[2]
         if self.canvas[y] and self.canvas[y][x] then
-            self.canvas[y][x].bgColor = self.color
+            if self.color ~= "alpha" then
+                self.canvas[y][x].bgColor = self.color
+            end
             self.canvas[y][x].char = self.char
             self.canvas[y][x].charColor = self.charColor
         end

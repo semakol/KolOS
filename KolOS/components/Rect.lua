@@ -74,7 +74,9 @@ function Rect:draw(canvas)
                 local x = self.x + j
                 local y = self.y + i
                 if canvas[y] and canvas[y][x] then
-                    canvas[y][x].bgColor = self.bgColor
+                    if self.bgColor ~= "alpha" then
+                        canvas[y][x].bgColor = self.bgColor
+                    end
                     canvas[y][x].char = self.char
                     canvas[y][x].charColor = self.charColor
                 end

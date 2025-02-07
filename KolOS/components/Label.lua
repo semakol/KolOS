@@ -53,7 +53,9 @@ function Label:draw(canvas)
         local x = self.x + i - 1
         local y = self.y
         if canvas[y] and canvas[y][x] then
-            canvas[y][x].bgColor = self.bgColor
+            if self.bgColor ~= "alpha" then
+                canvas[y][x].bgColor = self.bgColor
+            end
             canvas[y][x].char = self.text:sub(i, i)
             canvas[y][x].charColor = self.textColor
         end

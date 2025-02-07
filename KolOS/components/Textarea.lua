@@ -63,7 +63,9 @@ function Textarea:draw(canvas)
         for j = 1, self.width do
             local x = self.x + j - 1
             if canvas[y] and canvas[y][x] then
-                canvas[y][x].bgColor = self.bgColor
+                if self.bgColor ~= "alpha" then
+                    canvas[y][x].bgColor = self.bgColor
+                end
                 canvas[y][x].char = line:sub(j, j) ~= "" and line:sub(j, j) or " "
                 canvas[y][x].charColor = self.textColor
             end
