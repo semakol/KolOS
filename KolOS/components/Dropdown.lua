@@ -64,8 +64,13 @@ function Dropdown:draw(canvas)
         if #text <= maxLength then
             return text .. string.rep(" ", maxLength - #text)
         else
+            -- maxLength = maxLength
             local halfLength = math.floor((maxLength - 2) / 2)
-            return text:sub(1, halfLength) .. ".." .. text:sub(-halfLength)
+            local l = '..'
+            if halfLength * 2 + 2 < maxLength then
+                l = '...'
+            end
+            return text:sub(1, halfLength) .. l .. text:sub(-halfLength)
         end
     end
 
@@ -83,7 +88,7 @@ function Dropdown:draw(canvas)
     end
 
     local selectedItem = self.items[self.selectedIndex] or ""
-    local truncatedItem = truncateText(selectedItem, self.width - 1)
+    local truncatedItem = truncateText(selectedItem, self.width-1)
     drawItem(self.x, self.y, truncatedItem .. "V", self.bgColor, self.textColor)
 
     if self.expanded then
