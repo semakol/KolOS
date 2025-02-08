@@ -19,7 +19,7 @@ for i = 0, 255 do
 end
 
 for i = 1, 50, 2 do
-    frame:addLine(1, i, 200, i, colors.lightGray, 'alpha', '-')
+    frame:addLine(1, i, 200, i, colors.lightGray, 'alpha', '\x1d')
 end
 
 kolos:run()
