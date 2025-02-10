@@ -116,6 +116,12 @@ function Frame:addImage(x, y, filePath, zIndex)
     return image
 end
 
+function Frame:addComp(comp)
+    comp.frame = self
+    table.insert(self.components, comp)
+    return comp
+end
+
 function Frame:addKeyHandler()
     return self.keyHandler
 end

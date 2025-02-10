@@ -74,4 +74,12 @@ function Image:setZIndex(zIndex)
     return self
 end
 
+function Image:setParams(params)
+    if params.x then self.x = params.x end
+    if params.y then self.y = params.y end
+    if params.filePath then self:loadFile(params.filePath) end
+    if params.zIndex then self.zIndex = params.zIndex end
+    return self
+end
+
 return Image

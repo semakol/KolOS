@@ -110,4 +110,17 @@ function Line:draw(canvas)
     end
 end
 
+function Line:setParams(params)
+    if params.x1 then self.x1 = params.x1 end
+    if params.y1 then self.y1 = params.y1 end
+    if params.x2 then self.x2 = params.x2 end
+    if params.y2 then self.y2 = params.y2 end
+    if params.color then self.color = params.color end
+    if params.bgColor then self.bgColor = params.bgColor end
+    if params.char then self.char = params.char end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self.frame:draw()
+    return self
+end
+
 return Line

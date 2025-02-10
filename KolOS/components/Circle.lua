@@ -115,4 +115,19 @@ function Circle:draw(canvas)
     end
 end
 
+function Circle:setParams(params)
+    if params.x1 then self.x1 = params.x1 end
+    if params.y1 then self.y1 = params.y1 end
+    if params.x2 then self.x2 = params.x2 end
+    if params.y2 then self.y2 = params.y2 end
+    if params.color then self.color = params.color end
+    if params.charColor then self.charColor = params.charColor end
+    if params.fill ~= nil then self.fill = params.fill end
+    if params.char then self.char = params.char end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self:update()
+    self.frame:draw()
+    return self
+end
+
 return Circle

@@ -62,4 +62,15 @@ function Label:draw(canvas)
     end
 end
 
+function Label:setParams(params)
+    if params.x then self.x = params.x end
+    if params.y then self.y = params.y end
+    if params.text then self.text = params.text end
+    if params.textColor then self.textColor = params.textColor end
+    if params.bgColor then self.bgColor = params.bgColor end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self.frame:draw()
+    return self
+end
+
 return Label

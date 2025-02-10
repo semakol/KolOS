@@ -26,21 +26,21 @@ canvasChars = {
 }
 
 canvasColChar = {
-    {re, re, re, re, re, re}, 
-    {re, re, re, re, re, re}, 
-    {re, re, re, re, re, re}, 
-    {re, re, re, re, re, re}, 
-    {re, re, re, re, re, re}, 
-    {re, re, re, re, re, re}
+    {ye, ye, ye, ye, ye, ye}, 
+    {ye, ye, ye, ye, ye, ye}, 
+    {ye, ye, ye, ye, ye, ye}, 
+    {ye, ye, ye, ye, ye, ye}, 
+    {ye, ye, ye, ye, ye, ye}, 
+    {ye, ye, ye, ye, ye, ye}
 }
 
 canvasColBg = {
-    {gr, gr, gr, gr, gr, gr}, 
-    {gr, gr, gr, gr, gr, gr}, 
-    {gr, gr, gr, gr, gr, gr}, 
-    {gr, gr, gr, gr, gr, gr}, 
-    {gr, gr, gr, gr, gr, gr}, 
-    {gr, gr, gr, gr, gr, gr}
+    {bl, bl, bl, bl, bl, bl}, 
+    {bl, bl, bl, bl, bl, bl}, 
+    {bl, bl, bl, bl, bl, bl}, 
+    {bl, bl, bl, bl, bl, bl}, 
+    {bl, bl, bl, bl, bl, bl}, 
+    {bl, bl, bl, bl, bl, bl}
 }
 
 local file = fs.open("img_test", "w")

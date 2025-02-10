@@ -270,4 +270,22 @@ function Input:handleInput(event, param)
     end
 end
 
+function Input:setParams(params)
+    if params.x then self.x = params.x end
+    if params.y then self.y = params.y end
+    if params.width then self.width = params.width end
+    if params.maxLength then self.maxLength = params.maxLength end
+    if params.bgColor then self.bgColor = params.bgColor end
+    if params.textColor then self.textColor = params.textColor end
+    if params.replaceChar then self.replaceChar = params.replaceChar end
+    if params.history then self.history = params.history end
+    if params.completeFn then self.completeFn = params.completeFn end
+    if params.default then self.text = params.default end
+    if params.callback then self.callback = params.callback end
+    if params.deactivateOnEnter ~= nil then self.deactivateOnEnter = params.deactivateOnEnter end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self.frame:draw()
+    return self
+end
+
 return Input

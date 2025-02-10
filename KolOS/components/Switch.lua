@@ -104,4 +104,20 @@ function Switch:handleClick(x, y)
     end
 end
 
+function Switch:setParams(params)
+    if params.x then self.x = params.x end
+    if params.y then self.y = params.y end
+    if params.state ~= nil then self.state = params.state end
+    if params.callback then self.callback = params.callback end
+    if params.activeText then self.activeText = params.activeText end
+    if params.inactiveText then self.inactiveText = params.inactiveText end
+    if params.activeBgColor then self.activeBgColor = params.activeBgColor end
+    if params.inactiveBgColor then self.inactiveBgColor = params.inactiveBgColor end
+    if params.activeTextColor then self.activeTextColor = params.activeTextColor end
+    if params.inactiveTextColor then self.inactiveTextColor = params.inactiveTextColor end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self.frame:draw()
+    return self
+end
+
 return Switch

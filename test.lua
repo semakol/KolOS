@@ -37,7 +37,7 @@ local function main()
     end)
 
     -- Add a line
-    local line = frame:addLine(2, 16, 20, 18, colors.yellow, colors.black, "=")
+    local line = frame:addLine(2, 16, 20, 18, colors.yellow, colors.black, "|")
 
     -- Add a key handler
     local keyHandler = frame:addKeyHandler()

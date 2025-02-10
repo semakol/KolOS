@@ -97,4 +97,18 @@ function Button:handleClick(mx, my)
     end
 end
 
+function Button:setParams(params)
+    if params.x then self.x = params.x end
+    if params.y then self.y = params.y end
+    if params.label then self.label = params.label end
+    if params.callback then self.callback = params.callback end
+    if params.bgColor then self.bgColor = params.bgColor end
+    if params.textColor then self.textColor = params.textColor end
+    if params.width then self.width = params.width end
+    if params.height then self.height = params.height end
+    if params.zIndex then self.zIndex = params.zIndex end
+    self.frame:draw()
+    return self
+end
+
 return Button

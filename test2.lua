@@ -80,7 +80,7 @@ local circle = frame:addCircle()
     :setFill(true)
 
 local image = frame:addImage()
-    :setPosition(1, 1)
+    :setPosition(32, 10)
     :loadFile("img_test")
     -- :setZIndex(100)
 
