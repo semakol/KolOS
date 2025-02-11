@@ -87,9 +87,9 @@ function Frame:addDropdown(x, y, width, items, bgColor, textColor, zIndex)
 end
 
 function Frame:addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor,
-                         inactiveTextColor, zIndex)
+                         inactiveTextColor, zIndex, width, height)
     local switch = Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor,
-        activeTextColor, inactiveTextColor, zIndex or #self.components)
+        activeTextColor, inactiveTextColor, zIndex or #self.components, width, height)
     switch.frame = self
     table.insert(self.components, switch)
     return switch

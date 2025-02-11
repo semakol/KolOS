@@ -2,6 +2,15 @@
 
 ## Components
 
+### GUI
+Manages frames and events.
+
+**Methods:**
+- `GUI:new(frames)`
+- `GUI:addFrame(x, y, width, height, parent, name)`
+- `GUI:update(event, param1, param2, param3)`
+- `GUI:run(...)`
+
 ### Label
 A simple text label.
 
@@ -12,6 +21,7 @@ A simple text label.
 - `Label:setColors(textColor, bgColor)`
 - `Label:setZIndex(zIndex)`
 - `Label:draw(canvas)`
+- `Label:setParams(params)`
 
 ### KeyHandler
 Handles key events.
@@ -41,6 +51,7 @@ A text input field.
 - `Input:handleClick(mx, my)`
 - `Input:updateCompletions()`
 - `Input:handleInput(event, param)`
+- `Input:setParams(params)`
 
 ### Image
 Displays an image.
@@ -52,6 +63,7 @@ Displays an image.
 - `Image:draw(canvas)`
 - `Image:setPosition(x, y)`
 - `Image:setZIndex(zIndex)`
+- `Image:setParams(params)`
 
 ### Frame
 A container for other components.
@@ -65,7 +77,7 @@ A container for other components.
 - `Frame:addTextarea(x, y, width, height, bgColor, textColor, zIndex)`
 - `Frame:addRect(x, y, width, height, bgColor, fill, char, charColor, zIndex)`
 - `Frame:addDropdown(x, y, width, items, bgColor, textColor, zIndex)`
-- `Frame:addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)`
+- `Frame:addSwitch(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex, width, height)`
 - `Frame:addLine(x1, y1, x2, y2, color, bgColor, char, zIndex)`
 - `Frame:addCircle(x1, y1, x2, y2, color, fill, char, charColor, zIndex)`
 - `Frame:addImage(x, y, filePath, zIndex)`
@@ -91,6 +103,7 @@ A dropdown menu.
 - `Dropdown:handleKey(key)`
 - `Dropdown:isExpanded()`
 - `Dropdown:getSelectedOption()`
+- `Dropdown:setParams(params)`
 
 ### Circle
 Draws a circle.
@@ -104,6 +117,7 @@ Draws a circle.
 - `Circle:setZIndex(zIndex)`
 - `Circle:update()`
 - `Circle:draw(canvas)`
+- `Circle:setParams(params)`
 
 ### Button
 A clickable button.
@@ -118,15 +132,7 @@ A clickable button.
 - `Button:addCallback(callback)`
 - `Button:draw(canvas)`
 - `Button:handleClick(mx, my)`
-
-### GUI
-Manages frames and events.
-
-**Methods:**
-- `GUI:new(frames)`
-- `GUI:addFrame(x, y, width, height, parent, name)`
-- `GUI:update(event, param1, param2, param3)`
-- `GUI:run(...)`
+- `Button:setParams(params)`
 
 ### Textarea
 A scrollable text area.
@@ -143,20 +149,23 @@ A scrollable text area.
 - `Textarea:scrollUp()`
 - `Textarea:scrollDown()`
 - `Textarea:isMouseOver(mx, my)`
+- `Textarea:setParams(params)`
 
 ### Switch
 A toggle switch.
 
 **Methods:**
-- `Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)`
+- `Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex, width, height)`
 - `Switch:setPosition(x, y)`
 - `Switch:setState(state)`
 - `Switch:setCallback(callback)`
 - `Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor)`
 - `Switch:setTexts(activeText, inactiveText)`
 - `Switch:setZIndex(zIndex)`
+- `Switch:setSize(width, height)`
 - `Switch:draw(canvas)`
 - `Switch:handleClick(x, y)`
+- `Switch:setParams(params)`
 
 ### Rect
 Draws a rectangle.
@@ -170,6 +179,7 @@ Draws a rectangle.
 - `Rect:setFill(fill)`
 - `Rect:setZIndex(zIndex)`
 - `Rect:draw(canvas)`
+- `Rect:setParams(params)`
 
 ### Line
 Draws a line.
@@ -181,3 +191,4 @@ Draws a line.
 - `Line:setChar(char)`
 - `Line:setZIndex(zIndex)`
 - `Line:draw(canvas)`
+- `Line:setParams(params)`

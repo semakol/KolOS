@@ -1,7 +1,7 @@
 local Switch = {}
 Switch.__index = Switch
 
-function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex)
+function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgColor, inactiveBgColor, activeTextColor, inactiveTextColor, zIndex, width, height)
     if type(x) == "table" then
         local params = x
         x = params.x
@@ -15,6 +15,8 @@ function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgCol
         activeTextColor = params.activeTextColor
         inactiveTextColor = params.inactiveTextColor
         zIndex = params.zIndex
+        width = params.width
+        height = params.height
     end
     local obj = setmetatable({}, self)
     obj.x = x or 0
@@ -28,6 +30,8 @@ function Switch:new(x, y, state, callback, activeText, inactiveText, activeBgCol
     obj.activeText = activeText or "[ON]"
     obj.inactiveText = inactiveText or "[OFF]"
     obj.zIndex = zIndex or 0
+    obj.width = width or math.max(#obj.activeText, #obj.inactiveText)
+    obj.height = height or 1
     return obj
 end
 
@@ -72,31 +76,45 @@ function Switch:setZIndex(zIndex)
     return self
 end
 
+function Switch:setSize(width, height)
+    self.width = width or self.width
+    self.height = height or self.height
+    self.frame:draw()
+    return self
+end
+
 function Switch:draw(canvas)
-    self.width = self.state and #self.activeText or #self.inactiveText
-    for i = 0, self.width - 1 do
-        local x = self.x + i
-        local y = self.y
-        if canvas[y] and canvas[y][x] then
-            if self.state then
-                if self.activeBgColor ~= "alpha" then
-                    canvas[y][x].bgColor = self.activeBgColor
+    local text = self.state and self.activeText or self.inactiveText
+    local textLength = #text
+    local padding = math.floor((self.width - textLength) / 2)
+    for y = 0, self.height - 1 do
+        for x = 0, self.width - 1 do
+            local canvasX = self.x + x
+            local canvasY = self.y + y
+            if canvas[canvasY] and canvas[canvasY][canvasX] then
+                if self.state then
+                    if self.activeBgColor ~= "alpha" then
+                        canvas[canvasY][canvasX].bgColor = self.activeBgColor
+                    end
+                    canvas[canvasY][canvasX].charColor = self.activeTextColor
+                else
+                    if self.inactiveBgColor ~= "alpha" then
+                        canvas[canvasY][canvasX].bgColor = self.inactiveBgColor
+                    end
+                    canvas[canvasY][canvasX].charColor = self.inactiveTextColor
                 end
-                canvas[y][x].charColor = self.activeTextColor
-                canvas[y][x].char = self.activeText:sub(i + 1, i + 1)
-            else
-                if self.inactiveBgColor ~= "alpha" then
-                    canvas[y][x].bgColor = self.inactiveBgColor
+                if y == math.floor(self.height / 2) and x >= padding and x < padding + textLength then
+                    canvas[canvasY][canvasX].char = text:sub(x - padding + 1, x - padding + 1)
+                else
+                    canvas[canvasY][canvasX].char = " "
                 end
-                canvas[y][x].charColor = self.inactiveTextColor
-                canvas[y][x].char = self.inactiveText:sub(i + 1, i + 1)
             end
         end
     end
 end
 
 function Switch:handleClick(x, y)
-    if x >= self.x and x < self.x + self.width and y == self.y then
+    if x >= self.x and x < self.x + self.width and y >= self.y and y < self.y + self.height then
         self.state = not self.state
         if self.callback then
             self.callback(self.state)
@@ -116,6 +134,8 @@ function Switch:setParams(params)
     if params.activeTextColor then self.activeTextColor = params.activeTextColor end
     if params.inactiveTextColor then self.inactiveTextColor = params.inactiveTextColor end
     if params.zIndex then self.zIndex = params.zIndex end
+    if params.width then self.width = params.width end
+    if params.height then self.height = params.height end
     self.frame:draw()
     return self
 end
