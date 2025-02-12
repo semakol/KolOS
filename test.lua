@@ -4,7 +4,7 @@ local frame = gui:addFrame()
 local function main()
     -- Add a textarea
     local textarea = frame:addTextarea(2, 10, 30, 3)
-    textarea:setText("This is a      textarea.\nYou, can.. --type multiple lines here.")
+    textarea:setText("This is a textarea")
 
     -- Add a label
     local label = frame:addLabel(2, 2, "Label Hello, World!")
@@ -28,14 +28,13 @@ local function main()
     local dropdown = frame:addDropdown(2, 4, 20, {"Optionssssssssssssssssssssssssss 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"})
 
     -- Add a switch
-    local switch = frame:addSwitch(2, 13, false, function(state)
+    local switch = frame:addSwitch(2, 14, false, function(state)
         if state then
             label:setText("Switch is ON")
         else
             label:setText("Switch is OFF")
         end
     end)
-        :setSize(1, 1)
 
     -- Add a line
     local line = frame:addLine(2, 16, 20, 18, colors.yellow, colors.black, "|")
