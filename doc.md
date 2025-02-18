@@ -1,8 +1,6 @@
 # KolOS Documentation
 
-## Components
-
-### GUI
+## GUI
 Manages frames and events.
 
 **Methods:**
@@ -11,7 +9,7 @@ Manages frames and events.
 - `GUI:update(event, param1, param2, param3)`
 - `GUI:run(...)`
 
-### Label
+## Label
 A simple text label.
 
 **Methods:**
@@ -23,7 +21,7 @@ A simple text label.
 - `Label:draw(canvas)`
 - `Label:setParams(params)`
 
-### KeyHandler
+## KeyHandler
 Handles key events.
 
 **Methods:**
@@ -31,7 +29,7 @@ Handles key events.
 - `KeyHandler:registerKey(key, action)`
 - `KeyHandler:handleKey(key)`
 
-### Input
+## Input
 A text input field.
 
 **Methods:**
@@ -53,7 +51,7 @@ A text input field.
 - `Input:handleInput(event, param)`
 - `Input:setParams(params)`
 
-### Image
+## Image
 Displays an image.
 
 **Methods:**
@@ -65,7 +63,7 @@ Displays an image.
 - `Image:setZIndex(zIndex)`
 - `Image:setParams(params)`
 
-### Frame
+## Frame
 A container for other components.
 
 **Methods:**
@@ -87,7 +85,7 @@ A container for other components.
 - `Frame:handleKey(key)`
 - `Frame:update(event, param1, param2, param3)`
 
-### Dropdown
+## Dropdown
 A dropdown menu.
 
 **Methods:**
@@ -105,7 +103,7 @@ A dropdown menu.
 - `Dropdown:getSelectedOption()`
 - `Dropdown:setParams(params)`
 
-### Circle
+## Circle
 Draws a circle.
 
 **Methods:**
@@ -119,7 +117,7 @@ Draws a circle.
 - `Circle:draw(canvas)`
 - `Circle:setParams(params)`
 
-### Button
+## Button
 A clickable button.
 
 **Methods:**
@@ -134,7 +132,7 @@ A clickable button.
 - `Button:handleClick(mx, my)`
 - `Button:setParams(params)`
 
-### Textarea
+## Textarea
 A scrollable text area.
 
 **Methods:**
@@ -151,7 +149,7 @@ A scrollable text area.
 - `Textarea:isMouseOver(mx, my)`
 - `Textarea:setParams(params)`
 
-### Switch
+## Switch
 A toggle switch.
 
 **Methods:**
@@ -167,7 +165,7 @@ A toggle switch.
 - `Switch:handleClick(x, y)`
 - `Switch:setParams(params)`
 
-### Rect
+## Rect
 Draws a rectangle.
 
 **Methods:**
@@ -181,7 +179,7 @@ Draws a rectangle.
 - `Rect:draw(canvas)`
 - `Rect:setParams(params)`
 
-### Line
+## Line
 Draws a line.
 
 **Methods:**

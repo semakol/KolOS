@@ -54,7 +54,7 @@ local function main()
                 table.insert(l, tostring(value))
             end
             textarea:addLine(table.concat(l, ' '))
-            frame:update(event, param1, param2, param3)
+            frame:updateEvent(event, param1, param2, param3)
         end
     end)
     term.clear()

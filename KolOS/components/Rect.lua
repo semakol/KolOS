@@ -31,39 +31,39 @@ end
 function Rect:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Rect:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Rect:setColors(bgColor, charColor)
     self.bgColor = bgColor or self.bgColor
     self.charColor = charColor or self.charColor
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Rect:setChar(char)
     self.char = char or self.char
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Rect:setFill(fill)
     self.fill = fill or self.fill
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Rect:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -95,7 +95,7 @@ function Rect:setParams(params)
     if params.char then self.char = params.char end
     if params.fill ~= nil then self.fill = params.fill end
     if params.zIndex then self.zIndex = params.zIndex end
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 

@@ -31,7 +31,7 @@ end
 function Textarea:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -39,20 +39,20 @@ function Textarea:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
     self:updateTextList()
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Textarea:setColors(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Textarea:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -91,14 +91,14 @@ function Textarea:setText(newText)
         table.insert(self.list, line)
     end
     self:updateTextList()
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Textarea:addLine(line)
     table.insert(self.list, line)
     self:updateTextList()
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -133,7 +133,7 @@ function Textarea:setParams(params)
     if params.textColor then self.textColor = params.textColor end
     if params.zIndex then self.zIndex = params.zIndex end
     self:updateTextList()
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 

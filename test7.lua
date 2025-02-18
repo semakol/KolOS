@@ -19,4 +19,5 @@ while true do
     sleep(0.2)
     line:setColors(colors.fromBlit(string.format("%x", (i % 15))))
     i = i + 1
+    frame:draw()
 end

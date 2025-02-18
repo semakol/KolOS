@@ -39,7 +39,7 @@ end
 
 function GUI:update(event, param1, param2, param3)
     for _, frame in ipairs(self.frames) do
-        frame:update(event, param1, param2, param3)
+        frame:updateEvent(event, param1, param2, param3)
     end
 end
 

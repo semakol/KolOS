@@ -66,11 +66,13 @@ end
 function Image:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
+    self.frame.update = true
     return self
 end
 
 function Image:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
+    self.frame.update = true
     return self
 end
 
@@ -79,6 +81,7 @@ function Image:setParams(params)
     if params.y then self.y = params.y end
     if params.filePath then self:loadFile(params.filePath) end
     if params.zIndex then self.zIndex = params.zIndex end
+    self.frame.update = true
     return self
 end
 

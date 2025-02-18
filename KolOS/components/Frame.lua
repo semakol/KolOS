@@ -29,6 +29,7 @@ function Frame:new(x, y, width, height, parent, name)
     obj.keyHandler = KeyHandler:new()
     obj.canvas = {}
     obj.visible = true
+    obj.update = true
     for i = 1, height do
         obj.canvas[i] = {}
         for j = 1, width do
@@ -191,7 +192,7 @@ function Frame:handleKey(key)
     self.keyHandler:handleKey(key)
 end
 
-function Frame:update(event, param1, param2, param3)
+function Frame:updateEvent(event, param1, param2, param3)
     if not self.visible then return end
     if self.name then
         if event == "monitor_touch" and self.name == param1 then
@@ -228,6 +229,16 @@ function Frame:update(event, param1, param2, param3)
         end
     end
     self:draw()
+end
+
+function Frame:autoUpdate(T)
+    while true do
+        sleep(T)
+        if self.update then
+            self:draw()
+            self.update = false
+        end
+    end
 end
 
 return Frame

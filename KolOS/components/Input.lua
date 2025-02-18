@@ -45,40 +45,40 @@ end
 function Input:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setSize(width, maxLength)
     self.width = width or self.width
     self.maxLength = maxLength or self.maxLength
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setColors(bgColor, textColor)
     self.bgColor = bgColor or self.bgColor
     self.textColor = textColor or self.textColor
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setReplaceChar(replaceChar)
     self.replaceChar = replaceChar
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setHistory(history)
     self.history = history or {}
     self.historyIndex = #self.history + 1
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setCompleteFn(completeFn)
     self.completeFn = completeFn
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -86,32 +86,32 @@ function Input:setDefault(default)
     self.text = default or ""
     self.cursorPos = #self.text
     self.scrollOffset = 0
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setCallback(callback)
     self.callback = callback
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setDeactivateOnEnter(deactivateOnEnter)
     self.deactivateOnEnter = deactivateOnEnter
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Input:addHistory(item)
     table.insert(self.history, item)
     self.historyIndex = #self.history + 1
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -284,7 +284,7 @@ function Input:setParams(params)
     if params.callback then self.callback = params.callback end
     if params.deactivateOnEnter ~= nil then self.deactivateOnEnter = params.deactivateOnEnter end
     if params.zIndex then self.zIndex = params.zIndex end
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 

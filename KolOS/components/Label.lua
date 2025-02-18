@@ -25,26 +25,26 @@ end
 function Label:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Label:setText(newText)
     self.text = newText
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Label:setColors(textColor, bgColor)
     self.textColor = textColor or self.textColor
     self.bgColor = bgColor or self.bgColor
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Label:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -69,7 +69,7 @@ function Label:setParams(params)
     if params.textColor then self.textColor = params.textColor end
     if params.bgColor then self.bgColor = params.bgColor end
     if params.zIndex then self.zIndex = params.zIndex end
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 

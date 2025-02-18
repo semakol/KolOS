@@ -38,19 +38,22 @@ end
 function Switch:setPosition(x, y)
     self.x = x or self.x
     self.y = y or self.y
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Switch:setState(state)
     self.state = state
-    self.frame:draw()
+    if self.callback then
+        self.callback(self.state)
+    end
+    self.frame.update = true
     return self
 end
 
 function Switch:setCallback(callback)
     self.callback = callback
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -59,27 +62,27 @@ function Switch:setColors(activeBgColor, inactiveBgColor, activeTextColor, inact
     self.inactiveBgColor = inactiveBgColor or self.inactiveBgColor
     self.activeTextColor = activeTextColor or self.activeTextColor
     self.inactiveTextColor = inactiveTextColor or self.inactiveTextColor
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Switch:setTexts(activeText, inactiveText)
     self.activeText = activeText or self.activeText
     self.inactiveText = inactiveText or self.inactiveText
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Switch:setZIndex(zIndex)
     self.zIndex = zIndex or self.zIndex
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
 function Switch:setSize(width, height)
     self.width = width or self.width
     self.height = height or self.height
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
@@ -136,7 +139,7 @@ function Switch:setParams(params)
     if params.zIndex then self.zIndex = params.zIndex end
     if params.width then self.width = params.width end
     if params.height then self.height = params.height end
-    self.frame:draw()
+    self.frame.update = true
     return self
 end
 
